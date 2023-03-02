@@ -3,28 +3,25 @@ import java.awt.*;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.*;
 
 public class UnitConverter extends JFrame{
     static final int WIDTH = 512;
     static final int HEIGHT = 250;
+    static final Image ICON = new ImageIcon(Toolkit.getDefaultToolkit().getImage(
+            UnitConverter.class.getResource("/assets/logo16.png"))).getImage();
+    static final Image BG_IMAGE = new ImageIcon(Toolkit.getDefaultToolkit().getImage(
+            UnitConverter.class.getResource("/assets/background_alura.png"))).getImage();
     static final String[] CATEGORY_OPTIONS = {"Currency", "Temperature", "Option 3"};
 
     public UnitConverter() {
         // Create Main Screen:
-        JFrame mainScreen = new JFrame("Alura Unit Converter");
-        mainScreen.setSize(WIDTH, HEIGHT);
-        mainScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
-        // Create a new ImageIcon with the path to your logo
-
-        // Set the icon image of the JFrame
-
-
+        setTitle("Alura Unit Converter");
+        setIconImage(ICON);
+        setSize(WIDTH, HEIGHT);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
         // Create Label and Load Background Image:
@@ -50,10 +47,10 @@ public class UnitConverter extends JFrame{
         background.add(categoryPanel, BorderLayout.CENTER);
 
         // Add Background Label to Main Screen:
-        mainScreen.setContentPane(background);
+        setContentPane(background);
 
         // Make Main Screen Visible:
-        mainScreen.setVisible(true);
+        setVisible(true);
     }
 
     public static void main(String[] args) {
