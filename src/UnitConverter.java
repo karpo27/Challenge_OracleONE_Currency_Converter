@@ -12,8 +12,11 @@ public class UnitConverter extends JFrame{
             UnitConverter.class.getResource("/assets/logo16.png"))).getImage();
     static final ImageIcon BG_IMAGE = new ImageIcon(Toolkit.getDefaultToolkit().getImage(
             UnitConverter.class.getResource("/assets/background_alura.png")));
+
+    static final Rectangle PANEL_1_POS = new Rectangle(WIDTH/2 - 80, 10, 133, 31);
+    static final Rectangle PANEL_2_POS = new Rectangle(WIDTH/2 - 80, 41, 133, 31);
+    static final Rectangle PANEL_3_POS = new Rectangle(WIDTH/2 - 80, 39, 133, 29);
     static final String[] CATEGORY_OPTIONS = {"-Select an Option-", "Currency", "Length", "Temperature"};
-    static final String[] PANEL_1 = {"-Select an Option-", "Currency", "Length", "Temperature"};
     static final String[] CURRENCY_OPTIONS = {"-Select an Option-", "Peso Argentino", "Dolar", "Euro"};
     static final String[] LENGTH_OPTIONS = {"-Select an Option-", "Peso Argentino", "Dolar", "Euro"};
     static final String[] TEMPERATURE_OPTIONS = {"-Select an Option-", "Peso Argentino", "Dolar", "Euro"};
@@ -32,7 +35,9 @@ public class UnitConverter extends JFrame{
         add(bgImage);
         //bgImage.setLayout(new FlowLayout());
 
-        // Create Category Panel:
+        // Panel 1 - Create Category Panel:
+        JPanelCreator categoryPanel = new JPanelCreator(PANEL_1_POS, CATEGORY_OPTIONS);
+        /*
         JPanel categoryPanel = new JPanel(new GridBagLayout());
         categoryPanel.setBounds(WIDTH/2 - 80, 10, 133, 29);
         GridBagConstraints gbc = new GridBagConstraints();
@@ -44,14 +49,12 @@ public class UnitConverter extends JFrame{
         JComboBox<String> categoryOptions = new JComboBox<String>(CATEGORY_OPTIONS);
         categoryPanel.add(categoryOptions, gbc);
 
-        // Create Currency Panel:
-        JPanelCreator currencyPanel = new JPanelCreator(WIDTH/2 - 80, 39, 133, 29, CURRENCY_OPTIONS);
+         */
 
-        // Create Length Panel:
-        JPanelCreator lengthPanel = new JPanelCreator(WIDTH/2 - 80, 39, 133, 29, LENGTH_OPTIONS);
-
-        // Create Temperature Panel:
-        JPanelCreator temperaturePanel = new JPanelCreator(WIDTH/2 - 80, 39, 133, 29, TEMPERATURE_OPTIONS);
+        // Panel 2 - Create Currency, Length and Temperature Panels:
+        JPanelCreator currencyPanel = new JPanelCreator(PANEL_2_POS, CURRENCY_OPTIONS);
+        JPanelCreator lengthPanel = new JPanelCreator(PANEL_2_POS, LENGTH_OPTIONS);
+        JPanelCreator temperaturePanel = new JPanelCreator(PANEL_2_POS, TEMPERATURE_OPTIONS);
 
         // Add Category Panels to Background Label:
         bgImage.add(currencyPanel);
@@ -63,25 +66,27 @@ public class UnitConverter extends JFrame{
         temperaturePanel.setVisible(false);
         lengthPanel.setVisible(false);
 
-        // Add ActionListener to Category Options JComboBox:
+        /* Add ActionListener to Category Options JComboBox:
         categoryOptions.addActionListener(e -> {
                     String selectedOption = (String) categoryOptions.getSelectedItem();
 
                     // Show/Hide relevant category panel based on selected option:
                     if (selectedOption.equals("Currency")) {
                         currencyPanel.setVisible(true);
+                        lengthPanel.setVisible(false);
                         temperaturePanel.setVisible(false);
-                        lengthPanel.setVisible(false);
-                    } else if (selectedOption.equals("Temperature")) {
-                        currencyPanel.setVisible(false);
-                        temperaturePanel.setVisible(true);
-                        lengthPanel.setVisible(false);
                     } else if (selectedOption.equals("Length")) {
                         currencyPanel.setVisible(false);
-                        temperaturePanel.setVisible(false);
                         lengthPanel.setVisible(true);
+                        temperaturePanel.setVisible(false);
+                    } else if (selectedOption.equals("Temperature")) {
+                        currencyPanel.setVisible(false);
+                        lengthPanel.setVisible(false);
+                        temperaturePanel.setVisible(true);
                     }
                 });
+
+         */
 
         // Add Background Label to Main Screen:
         setContentPane(bgImage);
@@ -94,7 +99,6 @@ public class UnitConverter extends JFrame{
     }
 
     public static void main(String[] args) {
-
         new UnitConverter();
     }
 }
