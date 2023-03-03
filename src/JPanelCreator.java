@@ -1,7 +1,10 @@
+// Java Modules:
 import javax.swing.*;
 import java.awt.*;
 
 public class JPanelCreator extends JPanel {
+
+    public JComboBox<String> options;
 
     public JPanelCreator(Rectangle dimensions, String[] options){
         new JPanel(new GridBagLayout());
@@ -10,10 +13,12 @@ public class JPanelCreator extends JPanel {
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         setBounds(dimensions);
-
+        //setFont();
+        //setForeground(Color.RED);
+        //setLocation();
         gbc.gridy++;
 
-        JComboBox<String> categoryOptions = new JComboBox<String>(options);
-        add(categoryOptions, gbc);
+        this.options = new JComboBox<String>(options);
+        add(this.options, gbc);
     }
 }

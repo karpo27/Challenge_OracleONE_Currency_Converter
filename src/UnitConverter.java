@@ -1,8 +1,5 @@
 // Java Modules:
 import java.awt.*;
-import java.awt.BorderLayout;
-import java.awt.Toolkit;
-import javax.swing.ImageIcon;
 import javax.swing.*;
 
 public class UnitConverter extends JFrame{
@@ -14,10 +11,10 @@ public class UnitConverter extends JFrame{
             UnitConverter.class.getResource("/assets/background_alura.png")));
 
     static final Rectangle PANEL_1_POS = new Rectangle(WIDTH/2 - 80, 10, 133, 31);
-    static final Rectangle PANEL_2_POS = new Rectangle(WIDTH/2 - 80, 41, 133, 31);
+    static final Rectangle PANEL_2_POS = new Rectangle(WIDTH/2 - 80, 41, 133, 33);
     static final Rectangle PANEL_3_POS = new Rectangle(WIDTH/2 - 80, 39, 133, 29);
     static final String[] CATEGORY_OPTIONS = {"-Select an Option-", "Currency", "Length", "Temperature"};
-    static final String[] CURRENCY_OPTIONS = {"-Select an Option-", "Peso Argentino", "Dolar", "Euro"};
+    static final String[] CURRENCY_OPTIONS = {"Argentine Peso", "Dollar", "Euro", "Pounds", "Yen", "Won"};
     static final String[] LENGTH_OPTIONS = {"-Select an Option-", "Peso Argentino", "Dolar", "Euro"};
     static final String[] TEMPERATURE_OPTIONS = {"-Select an Option-", "Peso Argentino", "Dolar", "Euro"};
 
@@ -28,6 +25,7 @@ public class UnitConverter extends JFrame{
 
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // Create Label and Load Background Image:
@@ -66,9 +64,9 @@ public class UnitConverter extends JFrame{
         temperaturePanel.setVisible(false);
         lengthPanel.setVisible(false);
 
-        /* Add ActionListener to Category Options JComboBox:
-        categoryOptions.addActionListener(e -> {
-                    String selectedOption = (String) categoryOptions.getSelectedItem();
+        //Add ActionListener to Category Options JComboBox:
+        categoryPanel.options.addActionListener(e -> {
+                    String selectedOption = (String) categoryPanel.options.getSelectedItem();
 
                     // Show/Hide relevant category panel based on selected option:
                     if (selectedOption.equals("Currency")) {
@@ -86,7 +84,6 @@ public class UnitConverter extends JFrame{
                     }
                 });
 
-         */
 
         // Add Background Label to Main Screen:
         setContentPane(bgImage);
