@@ -16,8 +16,8 @@ public class UnitConverter extends JFrame{
     static final Rectangle LABEL_2_POS = new Rectangle(WIDTH/2 - 118, 41, 133, 33);
     static final String[] CATEGORY_OPTIONS = {"-Select an Option-", "Currency", "Length", "Temperature"};
     static final String[] CURRENCY_OPTIONS = {"-Select an Option-", "Argentine Peso", "Dollar", "Euro", "Pounds", "Yen", "Won"};
-    static final String[] LENGTH_OPTIONS = {"-Select an Option-", "Peso Argentino", "Dolar", "Euro"};
-    static final String[] TEMPERATURE_OPTIONS = {"-Select an Option-", "Peso Argentino", "Dolar", "Euro"};
+    static final String[] LENGTH_OPTIONS = {"-Select an Option-", "", "", ""};
+    static final String[] TEMPERATURE_OPTIONS = {"-Select an Option-", "", "", ""};
 
     public UnitConverter() {
         // Create Main Screen:
@@ -32,6 +32,7 @@ public class UnitConverter extends JFrame{
         // Create Label and Load Background Image:
         JLabel bgImage = new JLabel(BG_IMAGE);
         add(bgImage);
+
         //bgImage.setLayout(new FlowLayout());
 
         // Panel 1 - Create Category Panel:
@@ -43,27 +44,29 @@ public class UnitConverter extends JFrame{
         JPanelCreator temperaturePanel = new JPanelCreator(PANEL_2_POS, TEMPERATURE_OPTIONS, false);
 
         // Create "From" label and add to the left of panel 2:
-        JLabelCreator fromLabel = new JLabelCreator(LABEL_2_POS, "From", true);
-
-        JLabel fromLabel2 = new JLabel("From");
-        fromLabel2.setFont(new Font("SansSerif", Font.PLAIN, 14));
-        fromLabel2.setForeground(Color.BLACK);
+        JLabelCreator from = new JLabelCreator(LABEL_2_POS, "From", true);
 
         // Add Category Panels to Background Label:
-        bgImage.add((fromLabel2));
-        bgImage.add(fromLabel);
+        bgImage.add(from);
 
         // Add Category Panels to Background Label:
+        currencyPanel.add(from);
         bgImage.add(currencyPanel);
         bgImage.add(temperaturePanel);
         bgImage.add(lengthPanel);
+
 
         //Add ActionListener to Category Options JComboBox:
         categoryPanel.options.addActionListener(e -> {
                     String selectedOption = (String) categoryPanel.options.getSelectedItem();
 
-                    // Show/Hide relevant category panel based on selected option:
+                    // Show/Hide relevant panel based on selected option:
             switch (selectedOption) {
+                case "-Select an Option-" -> {
+                    currencyPanel.setVisible(false);
+                    lengthPanel.setVisible(false);
+                    temperaturePanel.setVisible(false);
+                }
                 case "Currency" -> {
                     currencyPanel.setVisible(true);
                     lengthPanel.setVisible(false);
