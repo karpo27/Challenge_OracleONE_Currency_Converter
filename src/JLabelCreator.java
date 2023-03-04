@@ -1,0 +1,13 @@
+// Java Modules:
+import javax.swing.*;
+import java.awt.*;
+
+public class JLabelCreator extends JLabel{
+    public JLabelCreator(Rectangle dimensions, String text, boolean visibility) {
+        new JLabel(text);
+        setFont(new Font("SansSerif", Font.PLAIN, 14));
+        setForeground(Color.WHITE);
+        setBounds(dimensions);
+        setVisible(visibility);
+    }
+}
