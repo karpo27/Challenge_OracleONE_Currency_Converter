@@ -1,5 +1,6 @@
 // Java Modules:
 import java.awt.*;
+import java.util.LinkedList;
 import java.util.Objects;
 import javax.swing.*;
 
@@ -14,8 +15,9 @@ public class UnitConverter extends JFrame{
     static final Rectangle PANEL_1_POS = new Rectangle(WIDTH/2 - 80, 10, 133, 33);
     static final Rectangle PANEL_2_POS = new Rectangle(WIDTH/2 - 80, 41, 133, 33);
     static final Rectangle PANEL_3_POS = new Rectangle(WIDTH/2 - 80, 74, 133, 33);
+    static final Rectangle LABEL_1_POS = new Rectangle(WIDTH/2 - 148, 10, 133, 33);
     static final Rectangle LABEL_2_POS = new Rectangle(WIDTH/2 - 118, 41, 133, 33);
-    static final Rectangle LABEL_3_POS = new Rectangle(WIDTH/2 - 118, 74, 133, 33);
+    static final Rectangle LABEL_3_POS = new Rectangle(WIDTH/2 - 104, 74, 133, 33);
     static final String[] CATEGORY_OPTIONS = {"-Select an Option-", "Currency", "Length", "Temperature"};
     static final String[] CURRENCY_OPTIONS = {"-Select an Option-", "Argentine Peso", "Dollar", "Euro", "Pounds", "Yen", "Won"};
     static final String[] LENGTH_OPTIONS = {"-Select an Option-", "", "", ""};
@@ -45,9 +47,12 @@ public class UnitConverter extends JFrame{
         JPanelCreator temperaturePanel = new JPanelCreator(PANEL_2_POS, TEMPERATURE_OPTIONS, false);
 
         // Panel 3 - Create Currency, Length and Temperature Panels:
-        JPanelCreator currencyPanel2 = new JPanelCreator(PANEL_2_POS, CURRENCY_OPTIONS, false);
-        JPanelCreator lengthPanel2 = new JPanelCreator(PANEL_2_POS, LENGTH_OPTIONS, false);
-        JPanelCreator temperaturePanel2 = new JPanelCreator(PANEL_2_POS, TEMPERATURE_OPTIONS, false);
+        JPanelCreator currencyPanel2 = new JPanelCreator(PANEL_3_POS, CURRENCY_OPTIONS, false);
+        JPanelCreator lengthPanel2 = new JPanelCreator(PANEL_3_POS, LENGTH_OPTIONS, false);
+        JPanelCreator temperaturePanel2 = new JPanelCreator(PANEL_3_POS, TEMPERATURE_OPTIONS, false);
+
+        // Label 2 - Create "From" Label:
+        JLabelCreator selectUnit = new JLabelCreator(LABEL_1_POS, "Select Unit", true);
 
         // Label 2 - Create "From" Label:
         JLabelCreator from = new JLabelCreator(LABEL_2_POS, "From", false);
@@ -60,21 +65,29 @@ public class UnitConverter extends JFrame{
         bgImage.add(currencyPanel);
         bgImage.add(temperaturePanel);
         bgImage.add(lengthPanel);
+        bgImage.add(currencyPanel2);
+        bgImage.add(temperaturePanel2);
+        bgImage.add(lengthPanel2);
+
 
         // Add Labels to Background Label:
+        bgImage.add(selectUnit);
         bgImage.add(from);
         bgImage.add(to);
 
         //Add ActionListener to Category Options JComboBox:
+        LinkedList<JPanelCreator> panelList = new LinkedList<>();
+        panelList.add(currencyPanel);
+        panelList.add(lengthPanel);
+        panelList.add(temperaturePanel);
+
         categoryPanel.options.addActionListener(e -> {
                     String selectedOption = (String) categoryPanel.options.getSelectedItem();
 
                     // Show/Hide relevant panel based on selected option:
             switch (Objects.requireNonNull(selectedOption)) {
                 case "-Select an Option-" -> {
-                    currencyPanel.setVisible(false);
-                    lengthPanel.setVisible(false);
-                    temperaturePanel.setVisible(false);
+                    panelVisibility(panelList, new boolean[] {false, false, false});
                     from.setVisible(false);
                 }
                 case "Currency" -> {
@@ -98,11 +111,51 @@ public class UnitConverter extends JFrame{
             }
                 });
 
+        //Add ActionListener to Currency Options JComboBox:
+        currencyPanel.options.addActionListener(e -> {
+            String selectedOption = (String) currencyPanel.options.getSelectedItem();
+
+            // Show/Hide relevant panel based on selected option:
+            switch (Objects.requireNonNull(selectedOption)) {
+                case "-Select an Option-" -> {
+                    currencyPanel2.setVisible(false);
+                    lengthPanel2.setVisible(false);
+                    temperaturePanel2.setVisible(false);
+                    to.setVisible(false);
+                }
+                case "Argentine Peso" -> {
+                    currencyPanel2.setVisible(true);
+                    lengthPanel2.setVisible(false);
+                    temperaturePanel2.setVisible(false);
+                    to.setVisible(true);
+                }
+                case "Dollar" -> {
+                    currencyPanel2.setVisible(true);
+                    lengthPanel2.setVisible(true);
+                    temperaturePanel2.setVisible(false);
+                    to.setVisible(true);
+                }
+                case "Euro" -> {
+                    currencyPanel2.setVisible(true);
+                    lengthPanel2.setVisible(false);
+                    temperaturePanel2.setVisible(true);
+                    to.setVisible(true);
+                }
+            }
+        });
+
         // Make Main Screen Visible:
         setVisible(true);
     }
 
+    public static void panelVisibility(LinkedList<JPanelCreator> panel, boolean[] visibility) {
+        for (int i = 0; i < panel.size(); i++){
+            panel.get(i).setVisible(visibility[i]);
+        }
+    }
+
     public static void main(String[] args) {
+
         new UnitConverter();
     }
 }
