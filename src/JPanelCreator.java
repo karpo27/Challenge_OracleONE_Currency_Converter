@@ -1,12 +1,13 @@
 // Java Modules:
 import javax.swing.*;
 import java.awt.*;
+import java.util.LinkedList;
 
 public class JPanelCreator extends JPanel {
 
     public JComboBox<String> options;
 
-    public JPanelCreator(Rectangle dimensions, String[] options, boolean visibility){
+    public JPanelCreator(Rectangle dimensions, LinkedList<String> options, boolean visibility){
         new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -19,7 +20,8 @@ public class JPanelCreator extends JPanel {
         setVisible(visibility);
         gbc.gridy++;
 
-        this.options = new JComboBox<String>(options);
+        String[] optionsArray = options.toArray(new String[0]);
+        this.options = new JComboBox<>(optionsArray);
         add(this.options, gbc);
     }
 }

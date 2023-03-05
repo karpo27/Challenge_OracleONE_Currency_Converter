@@ -1,7 +1,6 @@
 // Java Modules:
 import java.awt.*;
 import java.util.*;
-import java.util.List;
 import javax.swing.*;
 
 public class UnitConverter extends JFrame{
@@ -18,10 +17,16 @@ public class UnitConverter extends JFrame{
     static final Rectangle LABEL_1_POS = new Rectangle(WIDTH/2 - 148, 10, 133, 33);
     static final Rectangle LABEL_2_POS = new Rectangle(WIDTH/2 - 118, 41, 133, 33);
     static final Rectangle LABEL_3_POS = new Rectangle(WIDTH/2 - 104, 74, 133, 33);
-    static final String[] CATEGORY_OPTIONS = {"-Select an Option-", "Currency", "Length", "Temperature"};
+    /*static final String[] CATEGORY_OPTIONS = {"-Select an Option-", "Currency", "Length", "Temperature"};
     static final String[] CURRENCY_OPTIONS = {"-Select an Option-", "Argentine Peso", "Dollar", "Euro", "Pounds", "Yen", "Won"};
     static final String[] LENGTH_OPTIONS = {"-Select an Option-", "", "", ""};
     static final String[] TEMPERATURE_OPTIONS = {"-Select an Option-", "", "", ""};
+
+     */
+    final LinkedList<String> CATEGORY_OPTIONS = new LinkedList<>(Arrays.asList("-Select an Option-", "Currency", "Length", "Temperature"));
+    final LinkedList<String> CURRENCY_OPTIONS = new LinkedList<>(Arrays.asList("-Select an Option-", "Argentine Peso", "Dollar", "Euro", "Pounds", "Yen", "Won"));
+    final LinkedList<String> LENGTH_OPTIONS = new LinkedList<>(Arrays.asList("-Select an Option-", "Argentine Peso", "Dollar", "Euro", "Pounds", "Yen", "Won"));
+    final LinkedList<String> TEMPERATURE_OPTIONS = new LinkedList<>(Arrays.asList("-Select an Option-", "Argentine Peso", "Dollar", "Euro", "Pounds", "Yen", "Won"));
 
     public UnitConverter() {
         // Create Main Screen:
@@ -36,7 +41,6 @@ public class UnitConverter extends JFrame{
         // Create Label and Load Background Image:
         JLabel bgImage = new JLabel(BG_IMAGE);
         add(bgImage);
-        //bgImage.setLayout(new FlowLayout());
 
         // Panel 1 - Create Category Panel:
         JPanelCreator categoryPanel = new JPanelCreator(PANEL_1_POS, CATEGORY_OPTIONS, true);
@@ -51,7 +55,36 @@ public class UnitConverter extends JFrame{
         JPanelCreator lengthPanel2 = new JPanelCreator(PANEL_3_POS, LENGTH_OPTIONS, false);
         JPanelCreator temperaturePanel2 = new JPanelCreator(PANEL_3_POS, TEMPERATURE_OPTIONS, false);
 
-        // Label 2 - Create "From" Label:
+        // Constants:
+        /*
+        String[] argentine = {"-Select an Option-", "Dollar", "Euro", "Pounds", "Yen", "Won"};
+        String[] dollar = {"-Select an Option-", "Argentine Peso", "Euro", "Pounds", "Yen", "Won"};
+        String[] euro = {"-Select an Option-", "Argentine Peso", "Dollar", "Pounds", "Yen", "Won"};
+
+         */
+        LinkedList<String> argentine = new LinkedList<>(Arrays.asList("-Select an Option-", "Dollar", "Euro", "Pounds", "Yen", "Won"));
+        LinkedList<String> dollar = new LinkedList<>(Arrays.asList("-Select an Option-", "Argentine Peso", "Euro", "Pounds", "Yen", "Won"));
+        LinkedList<String> euro = new LinkedList<>(Arrays.asList("-Select an Option-", "Argentine Peso", "Dollar", "Pounds", "Yen", "Won"));
+        JPanelCreator argentinep = new JPanelCreator(PANEL_3_POS, argentine, false);
+        JPanelCreator dollarp = new JPanelCreator(PANEL_3_POS, dollar, false);
+        JPanelCreator europ = new JPanelCreator(PANEL_3_POS, euro, false);
+        bgImage.add(argentinep);
+        bgImage.add(dollarp);
+        bgImage.add(europ);
+        LinkedList<JPanelCreator> argentineList = new LinkedList<>();
+        argentineList.add(argentinep);
+        argentineList.add(dollarp);
+        argentineList.add(europ);
+        LinkedList<JPanelCreator> dollarList = new LinkedList<>();
+        dollarList.add(argentinep);
+        dollarList.add(dollarp);
+        dollarList.add(europ);
+        LinkedList<JPanelCreator> euroList = new LinkedList<>();
+        euroList.add(argentinep);
+        euroList.add(dollarp);
+        euroList.add(europ);
+
+        // Label 1 - Create "Select Unit" Label:
         JLabelCreator selectUnit = new JLabelCreator(LABEL_1_POS, "Select Unit", true);
 
         // Label 2 - Create "From" Label:
@@ -86,20 +119,19 @@ public class UnitConverter extends JFrame{
 
         categoryPanel.options.addActionListener(e -> {
                     String selectedOption = (String) categoryPanel.options.getSelectedItem();
-
-                    // Show/Hide relevant panel based on selected option:
+                    // Show/Hide relevant panel/label based on selected option:
             switch (Objects.requireNonNull(selectedOption)) {
                 case "-Select an Option-" -> {
-                    panelVisibility(categoryList, labelList, new boolean[] {false, false, false}, new boolean[] {false, false});
+                    setPanelVisibility(categoryList, labelList, new boolean[] {false, false, false}, new boolean[] {false, false});
                 }
                 case "Currency" -> {
-                    panelVisibility(categoryList, labelList, new boolean[] {true, false, false}, new boolean[] {true, false});
+                    setPanelVisibility(categoryList, labelList, new boolean[] {true, false, false}, new boolean[] {true, false});
                 }
                 case "Length" -> {
-                    panelVisibility(categoryList, labelList, new boolean[] {false, true, false}, new boolean[] {true, false});
+                    setPanelVisibility(categoryList, labelList, new boolean[] {false, true, false}, new boolean[] {true, false});
                 }
                 case "Temperature" -> {
-                    panelVisibility(categoryList, labelList, new boolean[] {false, false, true}, new boolean[] {true, false});
+                    setPanelVisibility(categoryList, labelList, new boolean[] {false, false, true}, new boolean[] {true, false});
                 }
             }
                 });
@@ -107,28 +139,26 @@ public class UnitConverter extends JFrame{
         //Add ActionListener to Currency Options JComboBox:
         LinkedList<JPanelCreator> currencyList = new LinkedList<>();
         currencyList.add(currencyPanel2);
+        currencyList.add(argentinep);
+        currencyList.add(dollarp);
+        currencyList.add(europ);
 
         currencyPanel.options.addActionListener(e -> {
             String selectedOption = (String) currencyPanel.options.getSelectedItem();
 
-            // Show/Hide relevant panel based on selected option:
+            // Show/Hide relevant panel/label based on selected option:
             switch (Objects.requireNonNull(selectedOption)) {
                 case "-Select an Option-" -> {
-
-                    panelVisibility(currencyList, labelList, new boolean[] {false, false, false}, new boolean[] {true, false});
+                    setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false}, new boolean[] {true, false});
                 }
-                case "Argentine Peso", "Dollar", "Euro" -> {
-                    String[] tempOptions = CURRENCY_OPTIONS;
-                    List<String> tempOptionsList = new ArrayList<>(Arrays.asList(tempOptions));
-                    tempOptionsList.remove(selectedOption);
-                    tempOptions = tempOptionsList.toArray(new String[0]);
-                    System.out.println(tempOptions);
-
-                    JPanelCreator tempPanel = new JPanelCreator(PANEL_3_POS, tempOptions, false);
-                    bgImage.add(tempPanel);
-                    LinkedList<JPanelCreator> tempList = new LinkedList<>();
-                    tempList.add(tempPanel);
-                    panelVisibility(currencyList, labelList, new boolean[] {true, false, false}, new boolean[] {true, true});
+                case "Argentine Peso" -> {
+                    setPanelVisibility(argentineList, labelList, new boolean[] {true, false, false}, new boolean[] {true, true});
+                }
+                case "Dollar" -> {
+                    setPanelVisibility(dollarList, labelList, new boolean[] {false, true, false}, new boolean[] {true, true});
+                }
+                case "Euro" -> {
+                    setPanelVisibility(euroList, labelList, new boolean[] {false, false, true}, new boolean[] {true, true});
                 }
             }
         });
@@ -137,7 +167,7 @@ public class UnitConverter extends JFrame{
         setVisible(true);
     }
 
-    public static void panelVisibility(LinkedList<JPanelCreator> panel, LinkedList<JLabelCreator> label, boolean[] panelVisibility, boolean[] labelVisibility) {
+    public static void setPanelVisibility(LinkedList<JPanelCreator> panel, LinkedList<JLabelCreator> label, boolean[] panelVisibility, boolean[] labelVisibility) {
         for (int i = 0; i < panel.size(); i++){
             panel.get(i).setVisible(panelVisibility[i]);
         }
