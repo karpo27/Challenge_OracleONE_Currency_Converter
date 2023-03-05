@@ -1,7 +1,7 @@
 // Java Modules:
 import java.awt.*;
-import java.util.LinkedList;
-import java.util.Objects;
+import java.util.*;
+import java.util.List;
 import javax.swing.*;
 
 public class UnitConverter extends JFrame{
@@ -69,17 +69,20 @@ public class UnitConverter extends JFrame{
         bgImage.add(temperaturePanel2);
         bgImage.add(lengthPanel2);
 
-
         // Add Labels to Background Label:
         bgImage.add(selectUnit);
         bgImage.add(from);
         bgImage.add(to);
 
         //Add ActionListener to Category Options JComboBox:
-        LinkedList<JPanelCreator> panelList = new LinkedList<>();
-        panelList.add(currencyPanel);
-        panelList.add(lengthPanel);
-        panelList.add(temperaturePanel);
+        LinkedList<JPanelCreator> categoryList = new LinkedList<>();
+        categoryList.add(currencyPanel);
+        categoryList.add(lengthPanel);
+        categoryList.add(temperaturePanel);
+
+        LinkedList<JLabelCreator> labelList = new LinkedList<>();
+        labelList.add(from);
+        labelList.add(to);
 
         categoryPanel.options.addActionListener(e -> {
                     String selectedOption = (String) categoryPanel.options.getSelectedItem();
@@ -87,59 +90,45 @@ public class UnitConverter extends JFrame{
                     // Show/Hide relevant panel based on selected option:
             switch (Objects.requireNonNull(selectedOption)) {
                 case "-Select an Option-" -> {
-                    panelVisibility(panelList, new boolean[] {false, false, false});
-                    from.setVisible(false);
+                    panelVisibility(categoryList, labelList, new boolean[] {false, false, false}, new boolean[] {false, false});
                 }
                 case "Currency" -> {
-                    currencyPanel.setVisible(true);
-                    lengthPanel.setVisible(false);
-                    temperaturePanel.setVisible(false);
-                    from.setVisible(true);
+                    panelVisibility(categoryList, labelList, new boolean[] {true, false, false}, new boolean[] {true, false});
                 }
                 case "Length" -> {
-                    currencyPanel.setVisible(false);
-                    lengthPanel.setVisible(true);
-                    temperaturePanel.setVisible(false);
-                    from.setVisible(true);
+                    panelVisibility(categoryList, labelList, new boolean[] {false, true, false}, new boolean[] {true, false});
                 }
                 case "Temperature" -> {
-                    currencyPanel.setVisible(false);
-                    lengthPanel.setVisible(false);
-                    temperaturePanel.setVisible(true);
-                    from.setVisible(true);
+                    panelVisibility(categoryList, labelList, new boolean[] {false, false, true}, new boolean[] {true, false});
                 }
             }
                 });
 
         //Add ActionListener to Currency Options JComboBox:
+        LinkedList<JPanelCreator> currencyList = new LinkedList<>();
+        currencyList.add(currencyPanel2);
+
         currencyPanel.options.addActionListener(e -> {
             String selectedOption = (String) currencyPanel.options.getSelectedItem();
 
             // Show/Hide relevant panel based on selected option:
             switch (Objects.requireNonNull(selectedOption)) {
                 case "-Select an Option-" -> {
-                    currencyPanel2.setVisible(false);
-                    lengthPanel2.setVisible(false);
-                    temperaturePanel2.setVisible(false);
-                    to.setVisible(false);
+
+                    panelVisibility(currencyList, labelList, new boolean[] {false, false, false}, new boolean[] {true, false});
                 }
-                case "Argentine Peso" -> {
-                    currencyPanel2.setVisible(true);
-                    lengthPanel2.setVisible(false);
-                    temperaturePanel2.setVisible(false);
-                    to.setVisible(true);
-                }
-                case "Dollar" -> {
-                    currencyPanel2.setVisible(true);
-                    lengthPanel2.setVisible(true);
-                    temperaturePanel2.setVisible(false);
-                    to.setVisible(true);
-                }
-                case "Euro" -> {
-                    currencyPanel2.setVisible(true);
-                    lengthPanel2.setVisible(false);
-                    temperaturePanel2.setVisible(true);
-                    to.setVisible(true);
+                case "Argentine Peso", "Dollar", "Euro" -> {
+                    String[] tempOptions = CURRENCY_OPTIONS;
+                    List<String> tempOptionsList = new ArrayList<>(Arrays.asList(tempOptions));
+                    tempOptionsList.remove(selectedOption);
+                    tempOptions = tempOptionsList.toArray(new String[0]);
+                    System.out.println(tempOptions);
+
+                    JPanelCreator tempPanel = new JPanelCreator(PANEL_3_POS, tempOptions, false);
+                    bgImage.add(tempPanel);
+                    LinkedList<JPanelCreator> tempList = new LinkedList<>();
+                    tempList.add(tempPanel);
+                    panelVisibility(currencyList, labelList, new boolean[] {true, false, false}, new boolean[] {true, true});
                 }
             }
         });
@@ -148,14 +137,16 @@ public class UnitConverter extends JFrame{
         setVisible(true);
     }
 
-    public static void panelVisibility(LinkedList<JPanelCreator> panel, boolean[] visibility) {
+    public static void panelVisibility(LinkedList<JPanelCreator> panel, LinkedList<JLabelCreator> label, boolean[] panelVisibility, boolean[] labelVisibility) {
         for (int i = 0; i < panel.size(); i++){
-            panel.get(i).setVisible(visibility[i]);
+            panel.get(i).setVisible(panelVisibility[i]);
+        }
+        for (int j = 0; j < label.size(); j++){
+            label.get(j).setVisible(labelVisibility[j]);
         }
     }
 
     public static void main(String[] args) {
-
         new UnitConverter();
     }
 }
