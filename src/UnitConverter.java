@@ -13,6 +13,7 @@ public class UnitConverter extends JFrame{
     final Rectangle PANEL_1_POS = new Rectangle(WIDTH/2 - 80, 10, 133, 33);
     final Rectangle PANEL_2_POS = new Rectangle(WIDTH/2 - 80, 41, 133, 33);
     final Rectangle PANEL_3_POS = new Rectangle(WIDTH/2 - 80, 74, 133, 33);
+    final Rectangle PANEL_4_POS = new Rectangle(WIDTH/2 - 80, 107, 133, 33);
     final Rectangle LABEL_1_POS = new Rectangle(WIDTH/2 - 148, 10, 133, 33);
     final Rectangle LABEL_2_POS = new Rectangle(WIDTH/2 - 118, 41, 133, 33);
     final Rectangle LABEL_3_POS = new Rectangle(WIDTH/2 - 104, 74, 133, 33);
@@ -68,6 +69,9 @@ public class UnitConverter extends JFrame{
         JPanelCreator yenPanel = new JPanelCreator(PANEL_3_POS, YEN, false);
         JPanelCreator wonPanel = new JPanelCreator(PANEL_3_POS, WON, false);
 
+        // Panel 4 - Create In Text Field:
+        JTextFieldCreator inValue = new JTextFieldCreator(PANEL_4_POS, true);
+
         // Label 1 - Create "Select Unit" Label:
         JLabelCreator selectUnit = new JLabelCreator(LABEL_1_POS, "Select Unit", true);
 
@@ -95,6 +99,8 @@ public class UnitConverter extends JFrame{
         bgImage.add(poundsPanel);
         bgImage.add(yenPanel);
         bgImage.add(wonPanel);
+            // Panel 4 - In Text Field:
+        bgImage.add(inValue);
 
         // Add Labels to Background Label:
         bgImage.add(selectUnit);
@@ -135,7 +141,42 @@ public class UnitConverter extends JFrame{
         currencyList.add(yenPanel);
         currencyList.add(wonPanel);
 
-        LinkedList<JPanelCreator> argentineList = new LinkedList<>();
+        currencyPanel.options.addActionListener(e -> {
+            String selectedOption = (String) currencyPanel.options.getSelectedItem();
+
+            // Show/Hide relevant Panel/Label based on selected option:
+            switch (Objects.requireNonNull(selectedOption)) {
+                case "-Select an Option-" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, false, false}, new boolean[] {true, false});
+                case "Argentine Peso" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, true, false, false, false, false, false}, new boolean[] {true, true});
+                case "Dollar" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, true, false, false, false, false}, new boolean[] {true, true});
+                case "Euro" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, true, false, false, false}, new boolean[] {true, true});
+                case "Pounds" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, true, false, false}, new boolean[] {true, true});
+                case "Yen" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, true, false}, new boolean[] {true, true});
+                case "Won" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, false, true}, new boolean[] {true, true});
+            }
+        });
+
+        // Make Main Screen Visible:
+        setVisible(true);
+    }
+
+    public static void setPanelVisibility(LinkedList<JPanelCreator> panel, LinkedList<JLabelCreator> label, boolean[] panelVisibility, boolean[] labelVisibility) {
+        for (int i = 0; i < panel.size(); i++){
+            panel.get(i).setVisible(panelVisibility[i]);
+        }
+        for (int j = 0; j < label.size(); j++){
+            label.get(j).setVisible(labelVisibility[j]);
+        }
+    }
+
+    public static void main(String[] args) {
+        new UnitConverter();
+    }
+}
+
+
+/*
+LinkedList<JPanelCreator> argentineList = new LinkedList<>();
         argentineList.add(argentinePanel);
         argentineList.add(dollarPanel);
         argentineList.add(euroPanel);
@@ -182,36 +223,4 @@ public class UnitConverter extends JFrame{
         wonList.add(poundsPanel);
         wonList.add(yenPanel);
         wonList.add(wonPanel);
-
-        currencyPanel.options.addActionListener(e -> {
-            String selectedOption = (String) currencyPanel.options.getSelectedItem();
-
-            // Show/Hide relevant Panel/Label based on selected option:
-            switch (Objects.requireNonNull(selectedOption)) {
-                case "-Select an Option-" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, false, false}, new boolean[] {true, false});
-                case "Argentine Peso" -> setPanelVisibility(argentineList, labelList, new boolean[] {true, false, false, false, false, false}, new boolean[] {true, true});
-                case "Dollar" -> setPanelVisibility(dollarList, labelList, new boolean[] {false, true, false, false, false, false}, new boolean[] {true, true});
-                case "Euro" -> setPanelVisibility(euroList, labelList, new boolean[] {false, false, true, false, false, false}, new boolean[] {true, true});
-                case "Pounds" -> setPanelVisibility(poundList, labelList, new boolean[] {false, false, false, true, false, false}, new boolean[] {true, true});
-                case "Yen" -> setPanelVisibility(yenList, labelList, new boolean[] {false, false, false, false, true, false}, new boolean[] {true, true});
-                case "Won" -> setPanelVisibility(wonList, labelList, new boolean[] {false, false, false, false, false, true}, new boolean[] {true, true});
-            }
-        });
-
-        // Make Main Screen Visible:
-        setVisible(true);
-    }
-
-    public static void setPanelVisibility(LinkedList<JPanelCreator> panel, LinkedList<JLabelCreator> label, boolean[] panelVisibility, boolean[] labelVisibility) {
-        for (int i = 0; i < panel.size(); i++){
-            panel.get(i).setVisible(panelVisibility[i]);
-        }
-        for (int j = 0; j < label.size(); j++){
-            label.get(j).setVisible(labelVisibility[j]);
-        }
-    }
-
-    public static void main(String[] args) {
-        new UnitConverter();
-    }
-}
+ */
