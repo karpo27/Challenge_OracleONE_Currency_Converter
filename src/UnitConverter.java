@@ -68,21 +68,6 @@ public class UnitConverter extends JFrame{
         JPanelCreator yenPanel = new JPanelCreator(PANEL_3_POS, YEN, false);
         JPanelCreator wonPanel = new JPanelCreator(PANEL_3_POS, WON, false);
 
-        LinkedList<JPanelCreator> argentineList = new LinkedList<>();
-        argentineList.add(argentinePanel);
-        argentineList.add(dollarPanel);
-        argentineList.add(euroPanel);
-
-        LinkedList<JPanelCreator> dollarList = new LinkedList<>();
-        dollarList.add(argentinePanel);
-        dollarList.add(dollarPanel);
-        dollarList.add(euroPanel);
-
-        LinkedList<JPanelCreator> euroList = new LinkedList<>();
-        euroList.add(argentinePanel);
-        euroList.add(dollarPanel);
-        euroList.add(euroPanel);
-
         // Label 1 - Create "Select Unit" Label:
         JLabelCreator selectUnit = new JLabelCreator(LABEL_1_POS, "Select Unit", true);
 
@@ -140,21 +125,76 @@ public class UnitConverter extends JFrame{
                 });
 
         //Add ActionListener to Currency Options JComboBox:
+            // Add Currencies Panels to Lists:
         LinkedList<JPanelCreator> currencyList = new LinkedList<>();
         currencyList.add(currencyPanel2);
         currencyList.add(argentinePanel);
         currencyList.add(dollarPanel);
         currencyList.add(euroPanel);
+        currencyList.add(poundsPanel);
+        currencyList.add(yenPanel);
+        currencyList.add(wonPanel);
+
+        LinkedList<JPanelCreator> argentineList = new LinkedList<>();
+        argentineList.add(argentinePanel);
+        argentineList.add(dollarPanel);
+        argentineList.add(euroPanel);
+        argentineList.add(poundsPanel);
+        argentineList.add(yenPanel);
+        argentineList.add(wonPanel);
+
+        LinkedList<JPanelCreator> dollarList = new LinkedList<>();
+        dollarList.add(argentinePanel);
+        dollarList.add(dollarPanel);
+        dollarList.add(euroPanel);
+        dollarList.add(poundsPanel);
+        dollarList.add(yenPanel);
+        dollarList.add(wonPanel);
+
+        LinkedList<JPanelCreator> euroList = new LinkedList<>();
+        euroList.add(argentinePanel);
+        euroList.add(dollarPanel);
+        euroList.add(euroPanel);
+        euroList.add(poundsPanel);
+        euroList.add(yenPanel);
+        euroList.add(wonPanel);
+
+        LinkedList<JPanelCreator> poundList = new LinkedList<>();
+        poundList.add(argentinePanel);
+        poundList.add(dollarPanel);
+        poundList.add(euroPanel);
+        poundList.add(poundsPanel);
+        poundList.add(yenPanel);
+        poundList.add(wonPanel);
+
+        LinkedList<JPanelCreator> yenList = new LinkedList<>();
+        yenList.add(argentinePanel);
+        yenList.add(dollarPanel);
+        yenList.add(euroPanel);
+        yenList.add(poundsPanel);
+        yenList.add(yenPanel);
+        yenList.add(wonPanel);
+
+        LinkedList<JPanelCreator> wonList = new LinkedList<>();
+        wonList.add(argentinePanel);
+        wonList.add(dollarPanel);
+        wonList.add(euroPanel);
+        wonList.add(poundsPanel);
+        wonList.add(yenPanel);
+        wonList.add(wonPanel);
 
         currencyPanel.options.addActionListener(e -> {
             String selectedOption = (String) currencyPanel.options.getSelectedItem();
 
             // Show/Hide relevant Panel/Label based on selected option:
             switch (Objects.requireNonNull(selectedOption)) {
-                case "-Select an Option-" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false}, new boolean[] {true, false});
-                case "Argentine Peso" -> setPanelVisibility(argentineList, labelList, new boolean[] {true, false, false}, new boolean[] {true, true});
-                case "Dollar" -> setPanelVisibility(dollarList, labelList, new boolean[] {false, true, false}, new boolean[] {true, true});
-                case "Euro" -> setPanelVisibility(euroList, labelList, new boolean[] {false, false, true}, new boolean[] {true, true});
+                case "-Select an Option-" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, false, false}, new boolean[] {true, false});
+                case "Argentine Peso" -> setPanelVisibility(argentineList, labelList, new boolean[] {true, false, false, false, false, false}, new boolean[] {true, true});
+                case "Dollar" -> setPanelVisibility(dollarList, labelList, new boolean[] {false, true, false, false, false, false}, new boolean[] {true, true});
+                case "Euro" -> setPanelVisibility(euroList, labelList, new boolean[] {false, false, true, false, false, false}, new boolean[] {true, true});
+                case "Pounds" -> setPanelVisibility(poundList, labelList, new boolean[] {false, false, false, true, false, false}, new boolean[] {true, true});
+                case "Yen" -> setPanelVisibility(yenList, labelList, new boolean[] {false, false, false, false, true, false}, new boolean[] {true, true});
+                case "Won" -> setPanelVisibility(wonList, labelList, new boolean[] {false, false, false, false, false, true}, new boolean[] {true, true});
             }
         });
 
