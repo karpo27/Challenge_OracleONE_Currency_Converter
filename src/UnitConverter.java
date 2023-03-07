@@ -1,5 +1,7 @@
 // Java Modules:
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.*;
 
@@ -17,7 +19,7 @@ public class UnitConverter extends JFrame{
     final Rectangle PANEL_4_POS = new Rectangle(WIDTH/2 - 81, 134, 134, 27);
     final Rectangle LABEL_1_POS = new Rectangle(WIDTH/2 - 118, 41, 133, 33);
     final Rectangle LABEL_2_POS = new Rectangle(WIDTH/2 - 104, 74, 133, 33);
-    final Rectangle LABEL_3_POS = new Rectangle(WIDTH/2 - 156, 103, 133, 33);
+    final Rectangle LABEL_3_POS = new Rectangle(WIDTH/2 - 180, 103, 133, 33);
     final Rectangle LABEL_4_POS = new Rectangle(WIDTH/2 - 124, 136, 133, 33);
     final Rectangle BUTTON_POS = new Rectangle(WIDTH/2 + 58, 108, 30, 26);
 
@@ -65,7 +67,7 @@ public class UnitConverter extends JFrame{
         // Label 2 - Create "To" Label:
         JLabelCreator to = new JLabelCreator(LABEL_2_POS, "To", false, 12);
         // Label 3 - Create "To" Label:
-        JLabelCreator insertValue = new JLabelCreator(LABEL_3_POS, "Insert Value", false, 12);
+        JLabelCreator insertValue = new JLabelCreator(LABEL_3_POS, "Insert a Number", false, 12);
         // Label 4 - Create "Result" Label:
         JLabelCreator resultValue = new JLabelCreator(LABEL_4_POS, "Result", false, 12);
 
@@ -153,6 +155,7 @@ public class UnitConverter extends JFrame{
         if(inValue.getTextField().equals("")){
             System.out.println("correcto");
         }
+
         // Make Main Screen Visible:
         setVisible(true);
     }

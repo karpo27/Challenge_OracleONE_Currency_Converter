@@ -8,20 +8,21 @@ public class JPanelCreator extends JPanel {
     public JComboBox<String> options;
 
     public JPanelCreator(Rectangle dimensions, LinkedList<String> options, boolean visibility){
+        // Set Panel Properties:
         new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.VERTICAL;
         setBounds(dimensions);
-        //setFont();
-        //setForeground(Color.RED);
-        //setLocation();
         setVisible(visibility);
         gbc.gridy++;
 
+        // Define ComboBox:
         String[] optionsArray = options.toArray(new String[0]);
         this.options = new JComboBox<>(optionsArray);
+
+        // Add ComboBox to Panel:
         add(this.options, gbc);
     }
 }
