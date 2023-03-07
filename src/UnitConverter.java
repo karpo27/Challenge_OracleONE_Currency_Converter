@@ -1,7 +1,5 @@
 // Java Modules:
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.*;
 import javax.swing.*;
 
@@ -13,6 +11,9 @@ public class UnitConverter extends JFrame{
     static final ImageIcon BG_IMAGE = new ImageIcon(Toolkit.getDefaultToolkit().getImage(
             UnitConverter.class.getResource("/assets/background_alura.png")));
     final ImageIcon greenTick = new ImageIcon(Objects.requireNonNull(getClass().getResource("/assets/greenTick.png")));
+    private JTextFieldCreator inValue;
+    private JButtonCreator button;
+
     final Rectangle PANEL_1_POS = new Rectangle(WIDTH/2 - 80, 41, 133, 33);
     final Rectangle PANEL_2_POS = new Rectangle(WIDTH/2 - 80, 74, 133, 33);
     final Rectangle PANEL_3_POS = new Rectangle(WIDTH/2 - 81, 107, 134, 27);
@@ -58,7 +59,7 @@ public class UnitConverter extends JFrame{
         JPanelCreator yenPanel = new JPanelCreator(PANEL_2_POS, YEN, false);
         JPanelCreator wonPanel = new JPanelCreator(PANEL_2_POS, WON, false);
         // Panel 3 - Create In Text Field:
-        JTextFieldCreator inValue = new JTextFieldCreator(PANEL_3_POS, false);
+        inValue = new JTextFieldCreator(PANEL_3_POS, false);
         // Panel 4 - Create In Text Field:
         JTextFieldCreator outValue = new JTextFieldCreator(PANEL_4_POS, false);
 
@@ -72,7 +73,7 @@ public class UnitConverter extends JFrame{
         JLabelCreator resultValue = new JLabelCreator(LABEL_4_POS, "Result", false, 12);
 
         // Button - Create "Button":
-        JButtonCreator button = new JButtonCreator(BUTTON_POS, greenTick,false);
+        button = new JButtonCreator(BUTTON_POS, greenTick,false, inValue);
 
         // Add Category Panels to Background Label:
             // Panel 1 - Currency Panel:
