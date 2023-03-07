@@ -10,9 +10,9 @@ public class UnitConverter extends JFrame{
             UnitConverter.class.getResource("/assets/logo16.png"))).getImage();
     static final ImageIcon BG_IMAGE = new ImageIcon(Toolkit.getDefaultToolkit().getImage(
             UnitConverter.class.getResource("/assets/background_alura.png")));
-    final ImageIcon greenTick = new ImageIcon(Objects.requireNonNull(getClass().getResource("/assets/greenTick.png")));
-    private JTextFieldCreator inValue;
-    private JButtonCreator button;
+    final ImageIcon GREEN_TICK = new ImageIcon(Objects.requireNonNull(getClass().getResource("/assets/greenTick.png")));
+    private final JTextFieldCreator inValue;
+    private final JButtonCreator button;
 
     final Rectangle PANEL_1_POS = new Rectangle(WIDTH/2 - 80, 41, 133, 33);
     final Rectangle PANEL_2_POS = new Rectangle(WIDTH/2 - 80, 74, 133, 33);
@@ -73,7 +73,7 @@ public class UnitConverter extends JFrame{
         JLabelCreator resultValue = new JLabelCreator(LABEL_4_POS, "Result", false, 12);
 
         // Button - Create "Button":
-        button = new JButtonCreator(BUTTON_POS, greenTick,false, inValue);
+        button = new JButtonCreator(BUTTON_POS, GREEN_TICK,false, inValue);
 
         // Add Category Panels to Background Label:
             // Panel 1 - Currency Panel:
@@ -133,10 +133,6 @@ public class UnitConverter extends JFrame{
         });
 
         //Add ActionListener to In Value Text Field:
-            // Add In Value to List:
-        LinkedList<JTextFieldCreator> inValueList = new LinkedList<>();
-        inValueList.add(inValue);
-
         for (JPanelCreator panel : currencyList) {
             JComboBox<String> options = panel.options;
             options.addActionListener(e -> {
@@ -152,11 +148,6 @@ public class UnitConverter extends JFrame{
                 }
             });
         }
-
-        if(inValue.getTextField().equals("")){
-            System.out.println("correcto");
-        }
-
         // Make Main Screen Visible:
         setVisible(true);
     }
