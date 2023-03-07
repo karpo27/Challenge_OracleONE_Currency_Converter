@@ -8,8 +8,8 @@ public class JTextFieldCreator extends JPanel {
         setLayout(new BorderLayout());
         setFont(new Font("SansSerif", Font.PLAIN, 12));
         JTextField textField = new JTextField();
+        textField.setHorizontalAlignment(SwingConstants.RIGHT);
         add(textField, BorderLayout.CENTER);
-
         setVisible(visibility);
     }
 }

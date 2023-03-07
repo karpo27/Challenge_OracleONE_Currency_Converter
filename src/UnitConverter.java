@@ -12,10 +12,10 @@ public class UnitConverter extends JFrame{
             UnitConverter.class.getResource("/assets/background_alura.png")));
     final Rectangle PANEL_1_POS = new Rectangle(WIDTH/2 - 80, 41, 133, 33);
     final Rectangle PANEL_2_POS = new Rectangle(WIDTH/2 - 80, 74, 133, 33);
-    final Rectangle PANEL_3_POS = new Rectangle(WIDTH/2 - 80, 107, 133, 27);
+    final Rectangle PANEL_3_POS = new Rectangle(WIDTH/2 - 81, 107, 134, 27);
     final Rectangle LABEL_1_POS = new Rectangle(WIDTH/2 - 118, 41, 133, 33);
     final Rectangle LABEL_2_POS = new Rectangle(WIDTH/2 - 104, 74, 133, 33);
-    final Rectangle LABEL_3_POS = new Rectangle(WIDTH/2 - 152, 107, 133, 33);
+    final Rectangle LABEL_3_POS = new Rectangle(WIDTH/2 - 156, 103, 133, 33);
 
     // Panel 1: Currency, Length, Temperature:
     final LinkedList<String> CURRENCY_OPTIONS = new LinkedList<>(Arrays.asList("-Select an Option-", "Argentine Peso", "Dollar", "Euro", "Pounds", "Yen", "Won"));
@@ -45,10 +45,8 @@ public class UnitConverter extends JFrame{
         // Panel 1 - Create Currency Panel:
         JPanelCreator currencyPanel = new JPanelCreator(PANEL_1_POS, CURRENCY_OPTIONS, true);
 
-        // Panel 2 - Create Currency2 Panel:
+        // Panel 2 - Create Currencies Panel:
         JPanelCreator currencyPanel2 = new JPanelCreator(PANEL_2_POS, CURRENCY_OPTIONS, false);
-
-        // Panel 2 - Create Currencies Panels:
         JPanelCreator argentinePanel = new JPanelCreator(PANEL_2_POS, ARGENTINE, false);
         JPanelCreator dollarPanel = new JPanelCreator(PANEL_2_POS, DOLLAR, false);
         JPanelCreator euroPanel = new JPanelCreator(PANEL_2_POS, EURO, false);
@@ -71,9 +69,8 @@ public class UnitConverter extends JFrame{
         // Add Category Panels to Background Label:
             // Panel 1 - Currency Panel:
         bgImage.add(currencyPanel);
-            // Panel 2 - Currency2 Panel:
+            // Panel 2 - Currencies Panel:
         bgImage.add(currencyPanel2);
-            // Panel 2 - Currencies Panels:
         bgImage.add(argentinePanel);
         bgImage.add(dollarPanel);
         bgImage.add(euroPanel);
@@ -110,7 +107,10 @@ public class UnitConverter extends JFrame{
 
             // Show/Hide relevant Panel/Label based on selected option:
             switch (Objects.requireNonNull(selectedOption)) {
-                case "-Select an Option-" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, false, false}, new boolean[] {true, false, false});
+                case "-Select an Option-" -> {
+                    setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, false, false}, new boolean[] {true, false, false});
+                    inValue.setVisible(false);
+                }
                 case "Argentine Peso" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, true, false, false, false, false, false}, new boolean[] {true, true, false});
                 case "Dollar" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, true, false, false, false, false}, new boolean[] {true, true, false});
                 case "Euro" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, true, false, false, false}, new boolean[] {true, true, false});
@@ -124,6 +124,20 @@ public class UnitConverter extends JFrame{
             // Add In Value to List:
         LinkedList<JTextFieldCreator> inValueList = new LinkedList<>();
         inValueList.add(inValue);
+
+        for (JPanelCreator panel : currencyList) {
+            JComboBox<String> options = panel.options;
+            options.addActionListener(e -> {
+                String selectedOption = (String) options.getSelectedItem();
+                if ("-Select an Option-".equals(selectedOption)) {
+                    inValue.setVisible(false);
+                    insertValue.setVisible(false);
+                } else {
+                    inValue.setVisible(true);
+                    insertValue.setVisible(true);
+                }
+            });
+        }
 
         // Make Main Screen Visible:
         setVisible(true);
@@ -142,20 +156,3 @@ public class UnitConverter extends JFrame{
         new UnitConverter();
     }
 }
-
-
-/*
-        for (JPanelCreator panel : currencyList){
-            if (panel.getName().equals("currencyPanel2")){
-                System.out.println("hola");
-                inValue.setVisible(false);
-                insertValue.setVisible(false);
-            } else {
-                panel.options.addActionListener(e -> {
-                    inValue.setVisible(true);
-                    insertValue.setVisible(true);
-                });
-            }
-        }
-
-         */
