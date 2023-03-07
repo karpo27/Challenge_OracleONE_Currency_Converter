@@ -16,6 +16,7 @@ public class UnitConverter extends JFrame{
     final Rectangle LABEL_1_POS = new Rectangle(WIDTH/2 - 118, 41, 133, 33);
     final Rectangle LABEL_2_POS = new Rectangle(WIDTH/2 - 104, 74, 133, 33);
     final Rectangle LABEL_3_POS = new Rectangle(WIDTH/2 - 156, 103, 133, 33);
+    final Rectangle BUTTON_POS = new Rectangle(WIDTH/2 + 52, 103, 30, 30);
 
     // Panel 1: Currency, Length, Temperature:
     final LinkedList<String> CURRENCY_OPTIONS = new LinkedList<>(Arrays.asList("-Select an Option-", "Argentine Peso", "Dollar", "Euro", "Pounds", "Yen", "Won"));
@@ -66,6 +67,9 @@ public class UnitConverter extends JFrame{
         // Label 3 - Create "To" Label:
         JLabelCreator insertValue = new JLabelCreator(LABEL_3_POS, "Insert Value", false, 12);
 
+        // Button - Create "Button":
+        JButtonCreator button = new JButtonCreator(BUTTON_POS, true);
+
         // Add Category Panels to Background Label:
             // Panel 1 - Currency Panel:
         bgImage.add(currencyPanel);
@@ -84,6 +88,8 @@ public class UnitConverter extends JFrame{
         bgImage.add(from);
         bgImage.add(to);
         bgImage.add(insertValue);
+        // Add Button to Background Label:
+        bgImage.add(button);
 
         //Add ActionListener to Currency Options JComboBox:
             // Add Currencies Panels to List:
