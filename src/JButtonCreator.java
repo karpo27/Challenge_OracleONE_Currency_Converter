@@ -31,7 +31,7 @@ public class JButtonCreator extends JPanel implements ActionListener {
         // Attempt to parse the text as a number:
         try {
             double number = Double.parseDouble(text);
-            System.out.println("You entered: " + number);
+            JOptionPane.showMessageDialog(this, "You entered: " + number, "Success", JOptionPane.INFORMATION_MESSAGE);
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Please enter a valid number", "Error", JOptionPane.ERROR_MESSAGE);
             System.out.println("Please enter a valid number");

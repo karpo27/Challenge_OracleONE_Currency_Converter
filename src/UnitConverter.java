@@ -11,9 +11,10 @@ public class UnitConverter extends JFrame{
     static final ImageIcon BG_IMAGE = new ImageIcon(Toolkit.getDefaultToolkit().getImage(
             UnitConverter.class.getResource("/assets/background_alura.png")));
     final ImageIcon GREEN_TICK = new ImageIcon(Objects.requireNonNull(getClass().getResource("/assets/greenTick.png")));
+    private final JPanelCreator currencyPanel;
     private final JTextFieldCreator inValue;
+    private final JLabelCreator insertValue;
     private final JButtonCreator button;
-
     final Rectangle PANEL_1_POS = new Rectangle(WIDTH/2 - 80, 41, 133, 33);
     final Rectangle PANEL_2_POS = new Rectangle(WIDTH/2 - 80, 74, 133, 33);
     final Rectangle PANEL_3_POS = new Rectangle(WIDTH/2 - 81, 107, 134, 27);
@@ -49,7 +50,7 @@ public class UnitConverter extends JFrame{
         add(bgImage);
 
         // Panel 1 - Create Currency Panel:
-        JPanelCreator currencyPanel = new JPanelCreator(PANEL_1_POS, CURRENCY_OPTIONS, true);
+        currencyPanel = new JPanelCreator(PANEL_1_POS, CURRENCY_OPTIONS, true);
         // Panel 2 - Create Currencies Panel:
         JPanelCreator currencyPanel2 = new JPanelCreator(PANEL_2_POS, CURRENCY_OPTIONS, false);
         JPanelCreator argentinePanel = new JPanelCreator(PANEL_2_POS, ARGENTINE, false);
@@ -68,7 +69,7 @@ public class UnitConverter extends JFrame{
         // Label 2 - Create "To" Label:
         JLabelCreator to = new JLabelCreator(LABEL_2_POS, "To", false, 12);
         // Label 3 - Create "To" Label:
-        JLabelCreator insertValue = new JLabelCreator(LABEL_3_POS, "Insert a Number", false, 12);
+        insertValue = new JLabelCreator(LABEL_3_POS, "Insert a Number", false, 12);
         // Label 4 - Create "Result" Label:
         JLabelCreator resultValue = new JLabelCreator(LABEL_4_POS, "Result", false, 12);
 
@@ -122,6 +123,7 @@ public class UnitConverter extends JFrame{
                 case "-Select an Option-" -> {
                     setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, false, false}, new boolean[] {true, false, false, false});
                     inValue.setVisible(false);
+                    button.setVisible(false);
                 }
                 case "Argentine Peso" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, true, false, false, false, false, false}, new boolean[] {true, true, false, false});
                 case "Dollar" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, true, false, false, false, false}, new boolean[] {true, true, false, false});
@@ -148,6 +150,7 @@ public class UnitConverter extends JFrame{
                 }
             });
         }
+
         // Make Main Screen Visible:
         setVisible(true);
     }
