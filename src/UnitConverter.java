@@ -10,13 +10,15 @@ public class UnitConverter extends JFrame{
             UnitConverter.class.getResource("/assets/logo16.png"))).getImage();
     static final ImageIcon BG_IMAGE = new ImageIcon(Toolkit.getDefaultToolkit().getImage(
             UnitConverter.class.getResource("/assets/background_alura.png")));
+    final ImageIcon greenTick = new ImageIcon(Objects.requireNonNull(getClass().getResource("/assets/greenTick.png")));
     final Rectangle PANEL_1_POS = new Rectangle(WIDTH/2 - 80, 41, 133, 33);
     final Rectangle PANEL_2_POS = new Rectangle(WIDTH/2 - 80, 74, 133, 33);
     final Rectangle PANEL_3_POS = new Rectangle(WIDTH/2 - 81, 107, 134, 27);
     final Rectangle LABEL_1_POS = new Rectangle(WIDTH/2 - 118, 41, 133, 33);
     final Rectangle LABEL_2_POS = new Rectangle(WIDTH/2 - 104, 74, 133, 33);
     final Rectangle LABEL_3_POS = new Rectangle(WIDTH/2 - 156, 103, 133, 33);
-    final Rectangle BUTTON_POS = new Rectangle(WIDTH/2 + 52, 103, 30, 30);
+    final Rectangle LABEL_4_POS = new Rectangle(WIDTH/2 - 126, 136, 133, 33);
+    final Rectangle BUTTON_POS = new Rectangle(WIDTH/2 + 58, 108, 30, 26);
 
     // Panel 1: Currency, Length, Temperature:
     final LinkedList<String> CURRENCY_OPTIONS = new LinkedList<>(Arrays.asList("-Select an Option-", "Argentine Peso", "Dollar", "Euro", "Pounds", "Yen", "Won"));
@@ -45,7 +47,6 @@ public class UnitConverter extends JFrame{
 
         // Panel 1 - Create Currency Panel:
         JPanelCreator currencyPanel = new JPanelCreator(PANEL_1_POS, CURRENCY_OPTIONS, true);
-
         // Panel 2 - Create Currencies Panel:
         JPanelCreator currencyPanel2 = new JPanelCreator(PANEL_2_POS, CURRENCY_OPTIONS, false);
         JPanelCreator argentinePanel = new JPanelCreator(PANEL_2_POS, ARGENTINE, false);
@@ -54,21 +55,20 @@ public class UnitConverter extends JFrame{
         JPanelCreator poundsPanel = new JPanelCreator(PANEL_2_POS, POUNDS, false);
         JPanelCreator yenPanel = new JPanelCreator(PANEL_2_POS, YEN, false);
         JPanelCreator wonPanel = new JPanelCreator(PANEL_2_POS, WON, false);
-
         // Panel 3 - Create In Text Field:
         JTextFieldCreator inValue = new JTextFieldCreator(PANEL_3_POS, false);
 
         // Label 1 - Create "From" Label:
         JLabelCreator from = new JLabelCreator(LABEL_1_POS, "From", true, 12);
-
         // Label 2 - Create "To" Label:
         JLabelCreator to = new JLabelCreator(LABEL_2_POS, "To", false, 12);
-
         // Label 3 - Create "To" Label:
         JLabelCreator insertValue = new JLabelCreator(LABEL_3_POS, "Insert Value", false, 12);
+        // Label 4 - Create "Result" Label:
+        JLabelCreator result = new JLabelCreator(LABEL_4_POS, "Result", true, 12);
 
         // Button - Create "Button":
-        JButtonCreator button = new JButtonCreator(BUTTON_POS, true);
+        JButtonCreator button = new JButtonCreator(BUTTON_POS, greenTick,false);
 
         // Add Category Panels to Background Label:
             // Panel 1 - Currency Panel:
