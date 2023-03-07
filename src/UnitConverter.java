@@ -32,7 +32,6 @@ public class UnitConverter extends JFrame{
     final LinkedList<String> YEN = new LinkedList<>(Arrays.asList("-Select an Option-", "Argentine Peso", "Dollar", "Euro", "Pounds", "Won"));
     final LinkedList<String> WON = new LinkedList<>(Arrays.asList("-Select an Option-", "Argentine Peso", "Dollar", "Euro", "Pounds", "Yen"));
 
-
     public UnitConverter() {
         // Create Main Screen:
         setTitle("Alura Currency Converter");
@@ -59,7 +58,7 @@ public class UnitConverter extends JFrame{
         // Panel 3 - Create In Text Field:
         JTextFieldCreator inValue = new JTextFieldCreator(PANEL_3_POS, false);
         // Panel 4 - Create In Text Field:
-        JTextFieldCreator outValue = new JTextFieldCreator(PANEL_4_POS, true);
+        JTextFieldCreator outValue = new JTextFieldCreator(PANEL_4_POS, false);
 
         // Label 1 - Create "From" Label:
         JLabelCreator from = new JLabelCreator(LABEL_1_POS, "From", true, 12);
@@ -68,7 +67,7 @@ public class UnitConverter extends JFrame{
         // Label 3 - Create "To" Label:
         JLabelCreator insertValue = new JLabelCreator(LABEL_3_POS, "Insert Value", false, 12);
         // Label 4 - Create "Result" Label:
-        JLabelCreator resultValue = new JLabelCreator(LABEL_4_POS, "Result", true, 12);
+        JLabelCreator resultValue = new JLabelCreator(LABEL_4_POS, "Result", false, 12);
 
         // Button - Create "Button":
         JButtonCreator button = new JButtonCreator(BUTTON_POS, greenTick,false);
@@ -88,7 +87,6 @@ public class UnitConverter extends JFrame{
         bgImage.add(inValue);
             // Panel 4 - Out Text Field:
         bgImage.add(outValue);
-
         // Add Labels to Background Label:
         bgImage.add(from);
         bgImage.add(to);
@@ -107,28 +105,27 @@ public class UnitConverter extends JFrame{
         currencyList.add(poundsPanel);
         currencyList.add(yenPanel);
         currencyList.add(wonPanel);
-
-        // Add Labels "From", "To, to Label List:
+            // Add Labels "From", "To, to Label List:
         LinkedList<JLabelCreator> labelList = new LinkedList<>();
         labelList.add(from);
         labelList.add(to);
         labelList.add(insertValue);
+        labelList.add(resultValue);
 
         currencyPanel.options.addActionListener(e -> {
             String selectedOption = (String) currencyPanel.options.getSelectedItem();
-
             // Show/Hide relevant Panel/Label based on selected option:
             switch (Objects.requireNonNull(selectedOption)) {
                 case "-Select an Option-" -> {
-                    setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, false, false}, new boolean[] {true, false, false});
+                    setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, false, false}, new boolean[] {true, false, false, false});
                     inValue.setVisible(false);
                 }
-                case "Argentine Peso" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, true, false, false, false, false, false}, new boolean[] {true, true, false});
-                case "Dollar" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, true, false, false, false, false}, new boolean[] {true, true, false});
-                case "Euro" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, true, false, false, false}, new boolean[] {true, true, false});
-                case "Pounds" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, true, false, false}, new boolean[] {true, true, false});
-                case "Yen" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, true, false}, new boolean[] {true, true, false});
-                case "Won" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, false, true}, new boolean[] {true, true, false});
+                case "Argentine Peso" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, true, false, false, false, false, false}, new boolean[] {true, true, false, false});
+                case "Dollar" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, true, false, false, false, false}, new boolean[] {true, true, false, false});
+                case "Euro" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, true, false, false, false}, new boolean[] {true, true, false, false});
+                case "Pounds" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, true, false, false}, new boolean[] {true, true, false, false});
+                case "Yen" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, true, false}, new boolean[] {true, true, false, false});
+                case "Won" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, false, true}, new boolean[] {true, true, false, false});
             }
         });
 
@@ -144,13 +141,18 @@ public class UnitConverter extends JFrame{
                 if ("-Select an Option-".equals(selectedOption)) {
                     inValue.setVisible(false);
                     insertValue.setVisible(false);
+                    button.setVisible(false);
                 } else {
                     inValue.setVisible(true);
                     insertValue.setVisible(true);
+                    button.setVisible(true);
                 }
             });
         }
 
+        if(inValue.getTextField().equals("")){
+            System.out.println("correcto");
+        }
         // Make Main Screen Visible:
         setVisible(true);
     }
