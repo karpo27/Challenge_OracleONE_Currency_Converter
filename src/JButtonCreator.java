@@ -23,8 +23,8 @@ public class JButtonCreator extends JPanel implements ActionListener {
         put("Yen", "JPY");
         put("Won", "KRW");
     }};
-    private String currency1;
-    private String currency2;
+    private String inCurrency;
+    private String outCurrency;
 
     public JButtonCreator(Rectangle dimensions, Icon image, boolean visibility, JTextFieldCreator inValue, JTextFieldCreator outValue) {
         // Set Panel Properties:
@@ -45,12 +45,12 @@ public class JButtonCreator extends JPanel implements ActionListener {
         setVisible(visibility);
     }
 
-    public void setCurrency1(String currency1) {
-        this.currency1 = currencySymbols.get(currency1);
+    public void setInCurrency(String inCurrency) {
+        this.inCurrency = currencySymbols.get(inCurrency);
     }
 
-    public void setCurrency2(String currency2) {
-        this.currency2 = currencySymbols.get(currency2);
+    public void setOutCurrency(String outCurrency) {
+        this.outCurrency = currencySymbols.get(outCurrency);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class JButtonCreator extends JPanel implements ActionListener {
             double number = Double.parseDouble(text);
 
             // Set URL request for API Currencies:
-            String urlString = "https://api.exchangerate.host/convert?from=" + currency1 + "&to=" + currency2;
+            String urlString = "https://api.exchangerate.host/convert?from=" + inCurrency + "&to=" + outCurrency;
             URL url = new URL(urlString);
             HttpURLConnection request = (HttpURLConnection) url.openConnection();
             request.connect();
@@ -94,7 +94,7 @@ public class JButtonCreator extends JPanel implements ActionListener {
 
             // Show successful conversion message:
             outValue.setTextField(stringResult);
-
+            outValue.setVisible(true);
             //JOptionPane.showMessageDialog(this, "You entered: " + roundedResult, "Success", JOptionPane.INFORMATION_MESSAGE);
         } catch (NumberFormatException | IOException ex) {
             // Show error message

@@ -21,6 +21,7 @@ public class JPanelCreator extends JPanel {
         // Define ComboBox:
         String[] optionsArray = options.toArray(new String[0]);
         this.options = new JComboBox<>(optionsArray);
+        this.options.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
         // Add ComboBox to Panel:
         add(this.options, gbc);

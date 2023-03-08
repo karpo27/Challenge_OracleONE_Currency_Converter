@@ -4,8 +4,8 @@ import java.util.*;
 import javax.swing.*;
 
 public class UnitConverter extends JFrame{
-    static final int WIDTH = 512;
-    static final int HEIGHT = 264;
+    static final int WIDTH = 700;
+    static final int HEIGHT = 342;
     static final Image ICON = new ImageIcon(Toolkit.getDefaultToolkit().getImage(
             UnitConverter.class.getResource("/assets/logo16.png"))).getImage();
     static final ImageIcon BG_IMAGE = new ImageIcon(Toolkit.getDefaultToolkit().getImage(
@@ -16,15 +16,19 @@ public class UnitConverter extends JFrame{
     private final JTextFieldCreator outValue;
     private final JLabelCreator insertValue;
     private final JButtonCreator button;
-    final Rectangle PANEL_1_POS = new Rectangle(WIDTH/2 - 80, 41, 133, 33);
-    final Rectangle PANEL_2_POS = new Rectangle(WIDTH/2 - 80, 74, 133, 33);
-    final Rectangle PANEL_3_POS = new Rectangle(WIDTH/2 - 81, 107, 134, 27);
-    final Rectangle PANEL_4_POS = new Rectangle(WIDTH/2 - 81, 134, 134, 27);
-    final Rectangle LABEL_1_POS = new Rectangle(WIDTH/2 - 118, 41, 133, 33);
-    final Rectangle LABEL_2_POS = new Rectangle(WIDTH/2 - 104, 74, 133, 33);
-    final Rectangle LABEL_3_POS = new Rectangle(WIDTH/2 - 180, 103, 133, 33);
-    final Rectangle LABEL_4_POS = new Rectangle(WIDTH/2 - 124, 136, 133, 33);
-    final Rectangle BUTTON_POS = new Rectangle(WIDTH/2 + 58, 108, 30, 26);
+    final int x = WIDTH/2 - 198;
+    final int y = 41;
+    final int w = 147;
+    final int h = 36;
+    final Rectangle PANEL_1_POS = new Rectangle(x, y, w, h);
+    final Rectangle PANEL_2_POS = new Rectangle(x, y + h, w, h);
+    final Rectangle PANEL_3_POS = new Rectangle(x - 1, y + 2 * h, w + 1, y - 13);
+    final Rectangle PANEL_4_POS = new Rectangle(x - 1, y + 3 * h, w + 1, y - 13);
+    final Rectangle LABEL_1_POS = new Rectangle(x - 50, y, w, y);
+    final Rectangle LABEL_2_POS = new Rectangle(x - 50, y + h, w, y);
+    final Rectangle LABEL_3_POS = new Rectangle(x - 50, y + 2 * h, w, y);
+    final Rectangle LABEL_4_POS = new Rectangle(x - 50, y + 3 * h, w, y);
+    final Rectangle BUTTON_POS = new Rectangle(x + 155, y + 2 * h, 30, y - 13);
 
     // Panel 1: Currency, Length, Temperature:
     final LinkedList<String> CURRENCY_OPTIONS = new LinkedList<>(Arrays.asList("-Select an Option-", "Argentine Peso", "Dollar", "Euro", "Pounds", "Yen", "Won"));
@@ -128,27 +132,27 @@ public class UnitConverter extends JFrame{
                 }
                 case "Argentine Peso" -> {
                     setPanelVisibility(currencyList, labelList, new boolean[] {false, true, false, false, false, false, false}, new boolean[] {true, true, false, false});
-                    button.setCurrency1(selectedOption);
+                    button.setInCurrency(selectedOption);
                 }
                 case "Dollar" -> {
                     setPanelVisibility(currencyList, labelList, new boolean[] {false, false, true, false, false, false, false}, new boolean[] {true, true, false, false});
-                    button.setCurrency1(selectedOption);
+                    button.setInCurrency(selectedOption);
                 }
                 case "Euro" -> {
                     setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, true, false, false, false}, new boolean[] {true, true, false, false});
-                    button.setCurrency1(selectedOption);
+                    button.setInCurrency(selectedOption);
                 }
                 case "Pounds" -> {
                     setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, true, false, false}, new boolean[] {true, true, false, false});
-                    button.setCurrency1(selectedOption);
+                    button.setInCurrency(selectedOption);
                 }
                 case "Yen" -> {
                     setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, true, false}, new boolean[] {true, true, false, false});
-                    button.setCurrency1(selectedOption);
+                    button.setInCurrency(selectedOption);
                 }
                 case "Won" -> {
                     setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, false, true}, new boolean[] {true, true, false, false});
-                    button.setCurrency1(selectedOption);
+                    button.setInCurrency(selectedOption);
                 }
             }
         });
@@ -166,7 +170,7 @@ public class UnitConverter extends JFrame{
                     inValue.setVisible(true);
                     insertValue.setVisible(true);
                     button.setVisible(true);
-                    button.setCurrency2(selectedOption);
+                    button.setOutCurrency(selectedOption);
                 }
             });
         }
