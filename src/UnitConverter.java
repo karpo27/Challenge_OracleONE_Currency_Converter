@@ -15,6 +15,7 @@ public class UnitConverter extends JFrame{
     private final JTextFieldCreator inValue;
     private final JTextFieldCreator outValue;
     private final JLabelCreator insertValue;
+    private final JLabelCreator resultValue;
     private final JButtonCreator button;
     final int x = WIDTH/2 - 198;
     final int y = 41;
@@ -24,11 +25,11 @@ public class UnitConverter extends JFrame{
     final Rectangle PANEL_2_POS = new Rectangle(x, y + h, w, h);
     final Rectangle PANEL_3_POS = new Rectangle(x - 1, y + 2 * h, w + 1, y - 13);
     final Rectangle PANEL_4_POS = new Rectangle(x - 1, y + 3 * h, w + 1, y - 13);
-    final Rectangle LABEL_1_POS = new Rectangle(x - 50, y, w, y);
-    final Rectangle LABEL_2_POS = new Rectangle(x - 50, y + h, w, y);
-    final Rectangle LABEL_3_POS = new Rectangle(x - 50, y + 2 * h, w, y);
-    final Rectangle LABEL_4_POS = new Rectangle(x - 50, y + 3 * h, w, y);
-    final Rectangle BUTTON_POS = new Rectangle(x + 155, y + 2 * h, 30, y - 13);
+    final Rectangle LABEL_1_POS = new Rectangle(x - 45, y - 2, w, y);
+    final Rectangle LABEL_2_POS = new Rectangle(x - 25, y + h - 3, w, y);
+    final Rectangle LABEL_3_POS = new Rectangle(x - 120, y + 2 * h - 6, w, y);
+    final Rectangle LABEL_4_POS = new Rectangle(x - 50, y + 3 * h - 20, w, y);
+    final Rectangle BUTTON_POS = new Rectangle(x + 155, y + 2 * h, 30, y - 12);
 
     // Panel 1: Currency, Length, Temperature:
     final LinkedList<String> CURRENCY_OPTIONS = new LinkedList<>(Arrays.asList("-Select an Option-", "Argentine Peso", "Dollar", "Euro", "Pounds", "Yen", "Won"));
@@ -70,13 +71,13 @@ public class UnitConverter extends JFrame{
         outValue = new JTextFieldCreator(PANEL_4_POS, false);
 
         // Label 1 - Create "From" Label:
-        JLabelCreator from = new JLabelCreator(LABEL_1_POS, "From", true, 12);
+        JLabelCreator from = new JLabelCreator(LABEL_1_POS, "From", true, 14);
         // Label 2 - Create "To" Label:
-        JLabelCreator to = new JLabelCreator(LABEL_2_POS, "To", false, 12);
+        JLabelCreator to = new JLabelCreator(LABEL_2_POS, "To", false, 14);
         // Label 3 - Create "To" Label:
-        insertValue = new JLabelCreator(LABEL_3_POS, "Insert a Number", false, 12);
+        insertValue = new JLabelCreator(LABEL_3_POS, "Insert a Number", false, 14);
         // Label 4 - Create "Result" Label:
-        JLabelCreator resultValue = new JLabelCreator(LABEL_4_POS, "Result", false, 12);
+        resultValue = new JLabelCreator(LABEL_4_POS, "Result", false, 14);
 
         // Button - Create "Button":
         button = new JButtonCreator(BUTTON_POS, GREEN_TICK,false, inValue, outValue);
@@ -166,6 +167,8 @@ public class UnitConverter extends JFrame{
                     inValue.setVisible(false);
                     insertValue.setVisible(false);
                     button.setVisible(false);
+                    outValue.setVisible(false);
+                    resultValue.setVisible(false);
                 } else {
                     inValue.setVisible(true);
                     insertValue.setVisible(true);

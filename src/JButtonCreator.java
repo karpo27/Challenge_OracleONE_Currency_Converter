@@ -34,7 +34,6 @@ public class JButtonCreator extends JPanel implements ActionListener {
         // Set Button Properties:
         JButton button = new JButton();
         button.setBounds(0, 0, dimensions.width, dimensions.height);
-        button.setEnabled(true);
         button.setIcon(image);
         button.addActionListener(this);
         this.inValue = inValue;
@@ -95,7 +94,7 @@ public class JButtonCreator extends JPanel implements ActionListener {
             // Show successful conversion message:
             outValue.setTextField(stringResult);
             outValue.setVisible(true);
-            //JOptionPane.showMessageDialog(this, "You entered: " + roundedResult, "Success", JOptionPane.INFORMATION_MESSAGE);
+
         } catch (NumberFormatException | IOException ex) {
             // Show error message
             JOptionPane.showMessageDialog(this, "Please enter a valid number", "Error", JOptionPane.ERROR_MESSAGE);
