@@ -1,18 +1,20 @@
 // Java Modules:
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.HashMap;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.HashMap;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 
 public class JButtonCreator extends JPanel implements ActionListener {
-    private final JTextFieldCreator textField;
+    private final JTextFieldCreator inValue;
+    private final JTextFieldCreator outValue;
     private final HashMap<String, String> currencySymbols = new HashMap<>(){{
         put("Argentine Peso", "ARS");
         put("Dollar", "USD");
@@ -24,7 +26,7 @@ public class JButtonCreator extends JPanel implements ActionListener {
     private String currency1;
     private String currency2;
 
-    public JButtonCreator(Rectangle dimensions, Icon image, boolean visibility, JTextFieldCreator textField) {
+    public JButtonCreator(Rectangle dimensions, Icon image, boolean visibility, JTextFieldCreator inValue, JTextFieldCreator outValue) {
         // Set Panel Properties:
         setLayout(null);
         setBounds(dimensions);
@@ -35,7 +37,8 @@ public class JButtonCreator extends JPanel implements ActionListener {
         button.setEnabled(true);
         button.setIcon(image);
         button.addActionListener(this);
-        this.textField = textField;
+        this.inValue = inValue;
+        this.outValue = outValue;
 
         // Add Button to Panel and Set Visibility:
         add(button);
@@ -53,15 +56,15 @@ public class JButtonCreator extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // Get the text from the TextField:
-        String text = textField.getTextField();
+        String text = inValue.getTextField();
 
         // Attempt to parse the text as a number:
         try {
             double number = Double.parseDouble(text);
 
             // Set URL request for API Currencies:
-            String url_str = "https://api.exchangerate.host/convert?from=" + currency1 + "&to=" + currency2;
-            URL url = new URL(url_str);
+            String urlString = "https://api.exchangerate.host/convert?from=" + currency1 + "&to=" + currency2;
+            URL url = new URL(urlString);
             HttpURLConnection request = (HttpURLConnection) url.openConnection();
             request.connect();
 
@@ -81,19 +84,21 @@ public class JButtonCreator extends JPanel implements ActionListener {
             // Parse the JSON string into a JsonObject:
             JsonObject jsonObject = gson.fromJson(jsonString, JsonObject.class);
 
-            // Access the "result" field using the get() method:
+            // Access the "result" field using the get() method and round the result:
             double result = jsonObject.get("result").getAsDouble() * number;
-            System.out.println(result);
+            double roundedResult = Math.round(result * 100.0) / 100.0;
+            String stringResult = String.valueOf(roundedResult);
 
             // Disconnect the request:
             request.disconnect();
 
             // Show successful conversion message:
-            JOptionPane.showMessageDialog(this, "You entered: " + result, "Success", JOptionPane.INFORMATION_MESSAGE);
+            outValue.setTextField(stringResult);
+
+            //JOptionPane.showMessageDialog(this, "You entered: " + roundedResult, "Success", JOptionPane.INFORMATION_MESSAGE);
         } catch (NumberFormatException | IOException ex) {
             // Show error message
             JOptionPane.showMessageDialog(this, "Please enter a valid number", "Error", JOptionPane.ERROR_MESSAGE);
-            System.out.println("Please enter a valid number");
         }
     }
 }

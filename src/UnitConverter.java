@@ -13,6 +13,7 @@ public class UnitConverter extends JFrame{
     final ImageIcon GREEN_TICK = new ImageIcon(Objects.requireNonNull(getClass().getResource("/assets/greenTick.png")));
     private final JPanelCreator currencyPanel;
     private final JTextFieldCreator inValue;
+    private final JTextFieldCreator outValue;
     private final JLabelCreator insertValue;
     private final JButtonCreator button;
     final Rectangle PANEL_1_POS = new Rectangle(WIDTH/2 - 80, 41, 133, 33);
@@ -62,7 +63,7 @@ public class UnitConverter extends JFrame{
         // Panel 3 - Create In Text Field:
         inValue = new JTextFieldCreator(PANEL_3_POS, false);
         // Panel 4 - Create In Text Field:
-        JTextFieldCreator outValue = new JTextFieldCreator(PANEL_4_POS, false);
+        outValue = new JTextFieldCreator(PANEL_4_POS, false);
 
         // Label 1 - Create "From" Label:
         JLabelCreator from = new JLabelCreator(LABEL_1_POS, "From", true, 12);
@@ -74,7 +75,7 @@ public class UnitConverter extends JFrame{
         JLabelCreator resultValue = new JLabelCreator(LABEL_4_POS, "Result", false, 12);
 
         // Button - Create "Button":
-        button = new JButtonCreator(BUTTON_POS, GREEN_TICK,false, inValue);
+        button = new JButtonCreator(BUTTON_POS, GREEN_TICK,false, inValue, outValue);
 
         // Add Category Panels to Background Label:
             // Panel 1 - Currency Panel:

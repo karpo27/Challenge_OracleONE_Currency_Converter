@@ -23,6 +23,10 @@ public class JTextFieldCreator extends JPanel {
     public String getTextField() {
         return textField.getText();
     }
+
+    public void setTextField(String text) {
+        textField.setText(text);
+    }
 }
 
 
