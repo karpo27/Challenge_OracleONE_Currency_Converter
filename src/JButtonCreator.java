@@ -5,8 +5,10 @@ import java.awt.event.*;
 
 public class JButtonCreator extends JPanel implements ActionListener {
     private final JTextFieldCreator textField;
+    private String currency1;
+    private String currency2;
 
-    public JButtonCreator(Rectangle dimensions, Icon image, boolean visibility, JTextFieldCreator textField){
+    public JButtonCreator(Rectangle dimensions, Icon image, boolean visibility, JTextFieldCreator textField) {
         // Set Panel Properties:
         setLayout(null);
         setBounds(dimensions);
@@ -23,6 +25,15 @@ public class JButtonCreator extends JPanel implements ActionListener {
         add(button);
         setVisible(visibility);
     }
+
+    public void setCurrency1(String currency1) {
+        this.currency1 = currency1;
+    }
+
+    public void setCurrency2(String currency2) {
+        this.currency2 = currency2;
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         // Get the text from the TextField:
@@ -36,7 +47,7 @@ public class JButtonCreator extends JPanel implements ActionListener {
             JOptionPane.showMessageDialog(this, "Please enter a valid number", "Error", JOptionPane.ERROR_MESSAGE);
             System.out.println("Please enter a valid number");
         }
-
     }
 }
+
 

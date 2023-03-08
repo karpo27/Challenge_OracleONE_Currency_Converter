@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class JTextFieldCreator extends JPanel {
-    private JTextField textField;
+    private final JTextField textField;
 
     public JTextFieldCreator(Rectangle dimensions, boolean visibility){
         // Set Panel Properties:
@@ -19,6 +19,7 @@ public class JTextFieldCreator extends JPanel {
         add(textField, BorderLayout.CENTER);
         setVisible(visibility);
     }
+
     public String getTextField() {
         return textField.getText();
     }

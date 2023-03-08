@@ -125,12 +125,30 @@ public class UnitConverter extends JFrame{
                     inValue.setVisible(false);
                     button.setVisible(false);
                 }
-                case "Argentine Peso" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, true, false, false, false, false, false}, new boolean[] {true, true, false, false});
-                case "Dollar" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, true, false, false, false, false}, new boolean[] {true, true, false, false});
-                case "Euro" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, true, false, false, false}, new boolean[] {true, true, false, false});
-                case "Pounds" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, true, false, false}, new boolean[] {true, true, false, false});
-                case "Yen" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, true, false}, new boolean[] {true, true, false, false});
-                case "Won" -> setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, false, true}, new boolean[] {true, true, false, false});
+                case "Argentine Peso" -> {
+                    setPanelVisibility(currencyList, labelList, new boolean[] {false, true, false, false, false, false, false}, new boolean[] {true, true, false, false});
+                    button.setCurrency1(selectedOption);
+                }
+                case "Dollar" -> {
+                    setPanelVisibility(currencyList, labelList, new boolean[] {false, false, true, false, false, false, false}, new boolean[] {true, true, false, false});
+                    button.setCurrency1(selectedOption);
+                }
+                case "Euro" -> {
+                    setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, true, false, false, false}, new boolean[] {true, true, false, false});
+                    button.setCurrency1(selectedOption);
+                }
+                case "Pounds" -> {
+                    setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, true, false, false}, new boolean[] {true, true, false, false});
+                    button.setCurrency1(selectedOption);
+                }
+                case "Yen" -> {
+                    setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, true, false}, new boolean[] {true, true, false, false});
+                    button.setCurrency1(selectedOption);
+                }
+                case "Won" -> {
+                    setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, false, true}, new boolean[] {true, true, false, false});
+                    button.setCurrency1(selectedOption);
+                }
             }
         });
 
@@ -147,6 +165,7 @@ public class UnitConverter extends JFrame{
                     inValue.setVisible(true);
                     insertValue.setVisible(true);
                     button.setVisible(true);
+                    button.setCurrency2(selectedOption);
                 }
             });
         }
