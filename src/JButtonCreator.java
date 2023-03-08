@@ -9,10 +9,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
+import java.util.HashMap;
 
 public class JButtonCreator extends JPanel implements ActionListener {
     private final JTextFieldCreator textField;
+    private final HashMap<String, String> currencySymbols = new HashMap<>(){{
+        put("Argentine Peso", "ARS");
+        put("Dollar", "USD");
+        put("Euro", "EUR");
+        put("Pounds", "GBP");
+        put("Yen", "JPY");
+        put("Won", "KRW");
+    }};
     private String currency1;
     private String currency2;
 
@@ -35,11 +43,11 @@ public class JButtonCreator extends JPanel implements ActionListener {
     }
 
     public void setCurrency1(String currency1) {
-        this.currency1 = currency1;
+        this.currency1 = currencySymbols.get(currency1);
     }
 
     public void setCurrency2(String currency2) {
-        this.currency2 = currency2;
+        this.currency2 = currencySymbols.get(currency2);
     }
 
     @Override
@@ -50,8 +58,9 @@ public class JButtonCreator extends JPanel implements ActionListener {
         // Attempt to parse the text as a number:
         try {
             double number = Double.parseDouble(text);
-            String url_str = "https://api.exchangerate.host/convert?from=USD&to=EUR";
 
+            // Set URL request for API Currencies:
+            String url_str = "https://api.exchangerate.host/convert?from=" + currency1 + "&to=" + currency2;
             URL url = new URL(url_str);
             HttpURLConnection request = (HttpURLConnection) url.openConnection();
             request.connect();
@@ -73,14 +82,14 @@ public class JButtonCreator extends JPanel implements ActionListener {
             JsonObject jsonObject = gson.fromJson(jsonString, JsonObject.class);
 
             // Access the "result" field using the get() method:
-            double result = jsonObject.get("result").getAsDouble();
+            double result = jsonObject.get("result").getAsDouble() * number;
             System.out.println(result);
 
-            // Disconnect the request
+            // Disconnect the request:
             request.disconnect();
 
             // Show successful conversion message:
-            JOptionPane.showMessageDialog(this, "You entered: " + number, "Success", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "You entered: " + result, "Success", JOptionPane.INFORMATION_MESSAGE);
         } catch (NumberFormatException | IOException ex) {
             // Show error message
             JOptionPane.showMessageDialog(this, "Please enter a valid number", "Error", JOptionPane.ERROR_MESSAGE);
