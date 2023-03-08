@@ -1,7 +1,15 @@
 // Java Modules:
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 
 public class JButtonCreator extends JPanel implements ActionListener {
     private final JTextFieldCreator textField;
@@ -42,8 +50,39 @@ public class JButtonCreator extends JPanel implements ActionListener {
         // Attempt to parse the text as a number:
         try {
             double number = Double.parseDouble(text);
+            String url_str = "https://api.exchangerate.host/convert?from=USD&to=EUR";
+
+            URL url = new URL(url_str);
+            HttpURLConnection request = (HttpURLConnection) url.openConnection();
+            request.connect();
+
+            // Read the JSON response from the input stream
+            InputStreamReader isr = new InputStreamReader(request.getInputStream());
+            BufferedReader br = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);
+            }
+            String jsonString = sb.toString();
+
+            // Create a Gson object:
+            Gson gson = new Gson();
+
+            // Parse the JSON string into a JsonObject:
+            JsonObject jsonObject = gson.fromJson(jsonString, JsonObject.class);
+
+            // Access the "result" field using the get() method:
+            double result = jsonObject.get("result").getAsDouble();
+            System.out.println(result);
+
+            // Disconnect the request
+            request.disconnect();
+
+            // Show successful conversion message:
             JOptionPane.showMessageDialog(this, "You entered: " + number, "Success", JOptionPane.INFORMATION_MESSAGE);
-        } catch (NumberFormatException ex) {
+        } catch (NumberFormatException | IOException ex) {
+            // Show error message
             JOptionPane.showMessageDialog(this, "Please enter a valid number", "Error", JOptionPane.ERROR_MESSAGE);
             System.out.println("Please enter a valid number");
         }
