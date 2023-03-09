@@ -18,7 +18,7 @@ public class JPanelCreator extends JPanel {
         setVisible(visibility);
         gbc.gridy++;
 
-        // Define ComboBox:
+        // Define JComboBox:
         String[] optionsArray = options.toArray(new String[0]);
         this.options = new JComboBox<>(optionsArray);
         this.options.setFont(new Font("SansSerif", Font.PLAIN, 14));

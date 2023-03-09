@@ -129,6 +129,7 @@ public class CurrencyConverter extends JFrame{
                 case "-Select an Option-" -> {
                     setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, false, false}, new boolean[] {true, false, false, false});
                     inValue.setVisible(false);
+                    outValue.setVisible(false);
                     button.setVisible(false);
                 }
                 case "Argentine Peso" -> {

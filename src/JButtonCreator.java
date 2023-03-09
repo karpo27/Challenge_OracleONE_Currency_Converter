@@ -11,7 +11,6 @@ import java.net.URL;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-
 public class JButtonCreator extends JPanel implements ActionListener {
     private final JTextFieldCreator inValue;
     private final JTextFieldCreator outValue;
@@ -37,6 +36,8 @@ public class JButtonCreator extends JPanel implements ActionListener {
         button.setBounds(0, 0, dimensions.width, dimensions.height);
         button.setIcon(image);
         button.addActionListener(this);
+
+            // Aditional variables to control with Button:
         this.inValue = inValue;
         this.outValue = outValue;
         this.result = result;
@@ -57,14 +58,14 @@ public class JButtonCreator extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         // Get the text from the TextField:
-        String text = inValue.getTextField();
+        String text = this.inValue.getTextField();
 
         // Attempt to parse the text as a number:
         try {
             double number = Double.parseDouble(text);
 
             // Set URL request for API Currencies:
-            String urlString = "https://api.exchangerate.host/convert?from=" + inCurrency + "&to=" + outCurrency;
+            String urlString = "https://api.exchangerate.host/convert?from=" + this.inCurrency + "&to=" + this.outCurrency;
             URL url = new URL(urlString);
             HttpURLConnection request = (HttpURLConnection) url.openConnection();
             request.connect();
