@@ -11,21 +11,21 @@ public class JTextFieldCreator extends JPanel {
         setLayout(new BorderLayout());
 
         // Set TextField Properties:
-        textField = new JTextField();
-        textField.setHorizontalAlignment(SwingConstants.RIGHT);
-        textField.setFont(new Font("SansSerif", Font.PLAIN, 16));
+        this.textField = new JTextField();
+        this.textField.setHorizontalAlignment(SwingConstants.RIGHT);
+        this.textField.setFont(new Font("SansSerif", Font.PLAIN, 16));
 
         // Add TextField to Panel and Set Visibility:
-        add(textField, BorderLayout.CENTER);
+        add(this.textField, BorderLayout.CENTER);
         setVisible(visibility);
     }
 
     public String getTextField() {
-        return textField.getText();
+        return this.textField.getText();
     }
 
     public void setTextField(String text) {
-        textField.setText(text);
+        this.textField.setText(text);
     }
 }
 

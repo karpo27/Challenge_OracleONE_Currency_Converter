@@ -15,6 +15,7 @@ import com.google.gson.JsonObject;
 public class JButtonCreator extends JPanel implements ActionListener {
     private final JTextFieldCreator inValue;
     private final JTextFieldCreator outValue;
+    private final JLabelCreator result;
     private final HashMap<String, String> currencySymbols = new HashMap<>(){{
         put("Argentine Peso", "ARS");
         put("Dollar", "USD");
@@ -26,7 +27,7 @@ public class JButtonCreator extends JPanel implements ActionListener {
     private String inCurrency;
     private String outCurrency;
 
-    public JButtonCreator(Rectangle dimensions, Icon image, boolean visibility, JTextFieldCreator inValue, JTextFieldCreator outValue) {
+    public JButtonCreator(Rectangle dimensions, Icon image, boolean visibility, JTextFieldCreator inValue, JTextFieldCreator outValue, JLabelCreator result) {
         // Set Panel Properties:
         setLayout(null);
         setBounds(dimensions);
@@ -38,6 +39,7 @@ public class JButtonCreator extends JPanel implements ActionListener {
         button.addActionListener(this);
         this.inValue = inValue;
         this.outValue = outValue;
+        this.result = result;
 
         // Add Button to Panel and Set Visibility:
         add(button);
@@ -92,8 +94,9 @@ public class JButtonCreator extends JPanel implements ActionListener {
             request.disconnect();
 
             // Show successful conversion message:
-            outValue.setTextField(stringResult);
-            outValue.setVisible(true);
+            this.outValue.setTextField(stringResult);
+            this.outValue.setVisible(true);
+            this.result.setVisible(true);
 
         } catch (NumberFormatException | IOException ex) {
             // Show error message

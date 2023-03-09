@@ -3,13 +3,13 @@ import java.awt.*;
 import java.util.*;
 import javax.swing.*;
 
-public class UnitConverter extends JFrame{
+public class CurrencyConverter extends JFrame{
     static final int WIDTH = 700;
     static final int HEIGHT = 342;
     static final Image ICON = new ImageIcon(Toolkit.getDefaultToolkit().getImage(
-            UnitConverter.class.getResource("/assets/logo16.png"))).getImage();
+            CurrencyConverter.class.getResource("/assets/logo16.png"))).getImage();
     static final ImageIcon BG_IMAGE = new ImageIcon(Toolkit.getDefaultToolkit().getImage(
-            UnitConverter.class.getResource("/assets/background_alura.png")));
+            CurrencyConverter.class.getResource("/assets/background_alura.png")));
     final ImageIcon GREEN_TICK = new ImageIcon(Objects.requireNonNull(getClass().getResource("/assets/greenTick.png")));
     private final JPanelCreator currencyPanel;
     private final JTextFieldCreator inValue;
@@ -28,7 +28,7 @@ public class UnitConverter extends JFrame{
     final Rectangle LABEL_1_POS = new Rectangle(x - 45, y - 2, w, y);
     final Rectangle LABEL_2_POS = new Rectangle(x - 25, y + h - 3, w, y);
     final Rectangle LABEL_3_POS = new Rectangle(x - 120, y + 2 * h - 6, w, y);
-    final Rectangle LABEL_4_POS = new Rectangle(x - 50, y + 3 * h - 20, w, y);
+    final Rectangle LABEL_4_POS = new Rectangle(x - 54, y + 3 * h - 7, w, y);
     final Rectangle BUTTON_POS = new Rectangle(x + 155, y + 2 * h, 30, y - 12);
 
     // Panel 1: Currency, Length, Temperature:
@@ -42,7 +42,7 @@ public class UnitConverter extends JFrame{
     final LinkedList<String> YEN = new LinkedList<>(Arrays.asList("-Select an Option-", "Argentine Peso", "Dollar", "Euro", "Pounds", "Won"));
     final LinkedList<String> WON = new LinkedList<>(Arrays.asList("-Select an Option-", "Argentine Peso", "Dollar", "Euro", "Pounds", "Yen"));
 
-    public UnitConverter() {
+    public CurrencyConverter() {
         // Create Main Screen:
         setTitle("Alura Currency Converter");
         setIconImage(ICON);
@@ -80,7 +80,7 @@ public class UnitConverter extends JFrame{
         resultValue = new JLabelCreator(LABEL_4_POS, "Result", false, 14);
 
         // Button - Create "Button":
-        button = new JButtonCreator(BUTTON_POS, GREEN_TICK,false, inValue, outValue);
+        button = new JButtonCreator(BUTTON_POS, GREEN_TICK,false, inValue, outValue, resultValue);
 
         // Add Category Panels to Background Label:
             // Panel 1 - Currency Panel:
@@ -192,6 +192,6 @@ public class UnitConverter extends JFrame{
     }
 
     public static void main(String[] args) {
-        new UnitConverter();
+        new CurrencyConverter();
     }
 }
