@@ -61,12 +61,12 @@ public class CurrencyConverter extends JFrame{
         JLabelCreator from = new JLabelCreator(LABEL_1_POS, "From", true, 14);
         // Label 2 - Create "To" Label:
         JLabelCreator to = new JLabelCreator(LABEL_2_POS, "To", false, 14);
-        // Label 3 - Create "To" Label:
+        // Label 3 - Create "Insert a Number" Label:
         INSERT_NUMBER_VALUE = new JLabelCreator(LABEL_3_POS, "Insert a Number", false, 14);
         // Label 4 - Create "Result" Label:
         RESULT_VALUE = new JLabelCreator(LABEL_4_POS, "Result", false, 14);
 
-        // Button - Create "Button":
+        // Button - Create BUTTON:
         BUTTON = new JButtonCreator(BUTTON_POS, GREEN_TICK,false, IN_VALUE, OUT_VALUE, RESULT_VALUE);
 
         // Add Category Panels to Background Label:
@@ -86,7 +86,7 @@ public class CurrencyConverter extends JFrame{
         // Add Button to Background Label:
         bgImage.add(BUTTON);
 
-        //Add ActionListener to Currency Options JComboBox:
+        // Create Label List for setting label visibility:
         LinkedList<JLabelCreator> labelList = new LinkedList<>();
         labelList.add(from);
         labelList.add(to);
@@ -110,7 +110,7 @@ public class CurrencyConverter extends JFrame{
             }
         });
 
-        //Add ActionListener to Panel 2 - OUT_CURRENCY_PANEL JComboBox:
+        // Add ActionListener to Panel 2 - OUT_CURRENCY_PANEL JComboBox:
         OUT_CURRENCY_PANEL.getOptionsComboBox().addActionListener(e -> {
             String selectedOption2 = (String) OUT_CURRENCY_PANEL.getOptionsComboBox().getSelectedItem();
             if ("-Select an Option-".equals(selectedOption2)) {

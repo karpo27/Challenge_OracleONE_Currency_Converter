@@ -35,6 +35,8 @@ public class JPanelCreator extends JPanel {
 
         if (selectedOption != null && !selectedOption.isEmpty()) {
             this.optionsComboBox.removeItem(selectedOption);
+        } else {
+            setVisible(false);
         }
     }
 }
