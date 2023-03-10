@@ -1,3 +1,12 @@
+<p>
+  <a href="https://www.linkedin.com/in/julian-giudice-940771a1/[removed]" rel="nofollow noreferrer">
+    <img src="https://i.stack.imgur.com/gVE0j.png" alt="linkedin"> LinkedIn
+  </a> &nbsp; 
+  <a href="https://github.com/karpo27[removed]" rel="nofollow noreferrer">
+    <img src="https://i.stack.imgur.com/tskMh.png" alt="github"> Github
+  </a>
+</p>
+
 # Challenge OracleONE: Currency Converter
 
 Currency Converter is a Java application that allows users to convert between different currencies. It provides a graphical interface using Swing, to select the input and output currency and enter the value to convert. This application uses the latest exchange rates from a free API to convert currencies accurately.
