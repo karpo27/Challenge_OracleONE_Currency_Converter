@@ -100,24 +100,24 @@ public class CurrencyConverter extends JFrame{
 
         // Add ActionListener to Panel 1 - IN_CURRENCY_PANEL JComboBox:
         IN_CURRENCY_PANEL.getOptionsComboBox().addActionListener(e -> {
-            String selectedOption1 = (String) IN_CURRENCY_PANEL.getOptionsComboBox().getSelectedItem();
-            if ("-Select an Option-".equals(selectedOption1)) {
+            String selectedOption = (String) IN_CURRENCY_PANEL.getOptionsComboBox().getSelectedItem();
+            if ("-Select an Option-".equals(selectedOption)) {
                 OUT_CURRENCY_PANEL.setOptionsComboBox(CURRENCY_OPTIONS, "");
                 setPanelVisibility(labelList, new boolean[] {true, false, false, false});
                 setTextVisibility(textList, new boolean[] {false, false});
                 BUTTON.setVisible(false);
             } else {
-                OUT_CURRENCY_PANEL.setOptionsComboBox(CURRENCY_OPTIONS, selectedOption1);
+                OUT_CURRENCY_PANEL.setOptionsComboBox(CURRENCY_OPTIONS, selectedOption);
                 setPanelVisibility(labelList, new boolean[] {true, true, false, false});
                 OUT_CURRENCY_PANEL.setVisible(true);
-                BUTTON.setInCurrency(selectedOption1);
+                BUTTON.setInCurrency(selectedOption);
             }
         });
 
         // Add ActionListener to Panel 2 - OUT_CURRENCY_PANEL JComboBox:
         OUT_CURRENCY_PANEL.getOptionsComboBox().addActionListener(e -> {
-            String selectedOption2 = (String) OUT_CURRENCY_PANEL.getOptionsComboBox().getSelectedItem();
-            if ("-Select an Option-".equals(selectedOption2)) {
+            String selectedOption = (String) OUT_CURRENCY_PANEL.getOptionsComboBox().getSelectedItem();
+            if ("-Select an Option-".equals(selectedOption)) {
                 setTextVisibility(textList, new boolean[] {false, false});
                 INSERT_NUMBER_VALUE.setVisible(false);
                 BUTTON.setVisible(false);
@@ -126,7 +126,7 @@ public class CurrencyConverter extends JFrame{
                 IN_VALUE.setVisible(true);
                 INSERT_NUMBER_VALUE.setVisible(true);
                 BUTTON.setVisible(true);
-                BUTTON.setOutCurrency(selectedOption2);
+                BUTTON.setOutCurrency(selectedOption);
             }
         });
 
@@ -150,16 +150,3 @@ public class CurrencyConverter extends JFrame{
         new CurrencyConverter();
     }
 }
-
-
-
-/*
-public static void setPanelVisibility(LinkedList<JPanelCreator> panel, LinkedList<JLabelCreator> label, boolean[] panelVisibility, boolean[] labelVisibility) {
-        for (int i = 0; i < panel.size(); i++){
-            panel.get(i).setVisible(panelVisibility[i]);
-        }
-        for (int j = 0; j < label.size(); j++){
-            label.get(j).setVisible(labelVisibility[j]);
-        }
-    }
- */
