@@ -33,7 +33,9 @@ public class CurrencyConverter extends JFrame{
     final Rectangle BUTTON_POS = new Rectangle(X + 155, Y + 2 * H, 30, Y - 12);
 
     // Panel 1: Currencies:
-    private final String[] CURRENCY_OPTIONS = {"-Select an Option-", "Argentine Peso", "Dollar", "Euro", "Pounds", "Yen", "Won"};
+    private final String[] CURRENCY_OPTIONS = {"-Select an Option-", "Argentina Peso", "Brazil Real", "Chile Peso",
+            "Uruguay Peso", "Paraguay Guarani", "Bolivia Boliviano", "Peru Sol", "Colombia Peso", "US Dollar",
+            "Venezuela Bolivar", "Mexico Peso", "Euro", "Pounds", "Japan Yen", "Korea Won"};
 
     public CurrencyConverter() {
         // Create Main Screen:
@@ -105,6 +107,7 @@ public class CurrencyConverter extends JFrame{
                 OUT_CURRENCY_PANEL.setOptionsComboBox(CURRENCY_OPTIONS, "");
                 setLabelVisibility(labelList, new boolean[] {true, false, false, false});
                 setTextVisibility(textList, new boolean[] {false, false});
+                IN_VALUE.setTextField("");
                 BUTTON.setVisible(false);
             } else {
                 OUT_CURRENCY_PANEL.setOptionsComboBox(CURRENCY_OPTIONS, selectedOption);
@@ -120,10 +123,12 @@ public class CurrencyConverter extends JFrame{
             if ("-Select an Option-".equals(selectedOption)) {
                 setLabelVisibility(labelList, new boolean[] {true, true, false, false});
                 setTextVisibility(textList, new boolean[] {false, false});
+                IN_VALUE.setTextField("");
                 BUTTON.setVisible(false);
             } else {
+                setLabelVisibility(labelList, new boolean[] {true, true, true, false});
                 setTextVisibility(textList, new boolean[] {true, false});
-                INSERT_NUMBER_VALUE.setVisible(true);
+                IN_VALUE.requestFocus();
                 BUTTON.setVisible(true);
                 BUTTON.setOutCurrency(selectedOption);
             }

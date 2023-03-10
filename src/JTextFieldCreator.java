@@ -27,6 +27,10 @@ public class JTextFieldCreator extends JPanel {
     public void setTextField(String text) {
         this.textField.setText(text);
     }
+
+    public void requestFocus(){
+        this.textField.requestFocus();
+    }
 }
 
 

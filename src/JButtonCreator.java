@@ -15,13 +15,22 @@ public class JButtonCreator extends JPanel implements ActionListener {
     private final JTextFieldCreator inValue;
     private final JTextFieldCreator outValue;
     private final JLabelCreator result;
-    private final HashMap<String, String> currencySymbols = new HashMap<>(){{
-        put("Argentine Peso", "ARS");
-        put("Dollar", "USD");
+    private final HashMap<String, String> CURRENCY_SYMBOLS = new HashMap<>(){{
+        put("Argentina Peso", "ARS");
+        put("Brazil Real", "BRL");
+        put("Chile Peso", "CLP");
+        put("Uruguay Peso", "UYU");
+        put("Paraguay Guarani", "PYG");
+        put("Bolivia Boliviano", "BOB");
+        put("Peru Sol", "PEN");
+        put("Colombia Peso", "COP");
+        put("Venezuela Bolivar", "VES");
+        put("Mexico Peso", "MXN");
+        put("US Dollar", "USD");
         put("Euro", "EUR");
         put("Pounds", "GBP");
-        put("Yen", "JPY");
-        put("Won", "KRW");
+        put("Japan Yen", "JPY");
+        put("Korea Won", "KRW");
     }};
     private String inCurrency;
     private String outCurrency;
@@ -49,11 +58,11 @@ public class JButtonCreator extends JPanel implements ActionListener {
     }
 
     public void setInCurrency(String inCurrency) {
-        this.inCurrency = currencySymbols.get(inCurrency);
+        this.inCurrency = CURRENCY_SYMBOLS.get(inCurrency);
     }
 
     public void setOutCurrency(String outCurrency) {
-        this.outCurrency = currencySymbols.get(outCurrency);
+        this.outCurrency = CURRENCY_SYMBOLS.get(outCurrency);
     }
 
     @Override
@@ -90,7 +99,7 @@ public class JButtonCreator extends JPanel implements ActionListener {
             // Access the "result" field using the get() method and round the result:
             double result = jsonObject.get("result").getAsDouble() * number;
             double roundedResult = Math.round(result * 100.0) / 100.0;
-            String stringResult = String.valueOf(roundedResult);
+            String stringResult = this.outCurrency + " " + roundedResult;
 
             // Disconnect the request:
             request.disconnect();
