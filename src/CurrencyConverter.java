@@ -86,7 +86,12 @@ public class CurrencyConverter extends JFrame{
         // Add Button to Background Label:
         bgImage.add(BUTTON);
 
-        // Create Label List for setting label visibility:
+        // Create Text Field List for setting text panel visibility:
+        LinkedList<JTextFieldCreator> textList = new LinkedList<>();
+        textList.add(IN_VALUE);
+        textList.add(OUT_VALUE);
+
+        // Create Label List for setting label panel visibility:
         LinkedList<JLabelCreator> labelList = new LinkedList<>();
         labelList.add(from);
         labelList.add(to);
@@ -99,8 +104,7 @@ public class CurrencyConverter extends JFrame{
             if ("-Select an Option-".equals(selectedOption1)) {
                 OUT_CURRENCY_PANEL.setOptionsComboBox(CURRENCY_OPTIONS, "");
                 setPanelVisibility(labelList, new boolean[] {true, false, false, false});
-                IN_VALUE.setVisible(false);
-                OUT_VALUE.setVisible(false);
+                setTextVisibility(textList, new boolean[] {false, false});
                 BUTTON.setVisible(false);
             } else {
                 OUT_CURRENCY_PANEL.setOptionsComboBox(CURRENCY_OPTIONS, selectedOption1);
@@ -114,10 +118,9 @@ public class CurrencyConverter extends JFrame{
         OUT_CURRENCY_PANEL.getOptionsComboBox().addActionListener(e -> {
             String selectedOption2 = (String) OUT_CURRENCY_PANEL.getOptionsComboBox().getSelectedItem();
             if ("-Select an Option-".equals(selectedOption2)) {
-                IN_VALUE.setVisible(false);
+                setTextVisibility(textList, new boolean[] {false, false});
                 INSERT_NUMBER_VALUE.setVisible(false);
                 BUTTON.setVisible(false);
-                OUT_VALUE.setVisible(false);
                 RESULT_VALUE.setVisible(false);
             } else {
                 IN_VALUE.setVisible(true);
@@ -131,9 +134,15 @@ public class CurrencyConverter extends JFrame{
         setVisible(true);
     }
 
-    public static void setPanelVisibility(LinkedList<JLabelCreator> label, boolean[] visibility) {
-        for (int j = 0; j < label.size(); j++){
-            label.get(j).setVisible(visibility[j]);
+    public static void setPanelVisibility(LinkedList<JLabelCreator> label, boolean[] labelVisibility) {
+        for (int i = 0; i < label.size(); i++){
+            label.get(i).setVisible(labelVisibility[i]);
+        }
+    }
+
+    public static void setTextVisibility(LinkedList<JTextFieldCreator> textField, boolean[] textVisibility) {
+        for (int i = 0; i < textField.size(); i++){
+            textField.get(i).setVisible(textVisibility[i]);
         }
     }
 
