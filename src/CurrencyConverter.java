@@ -48,13 +48,13 @@ public class CurrencyConverter extends JFrame{
         JLabel bgImage = new JLabel(BG_IMAGE);
         add(bgImage);
 
-        // Panel 1 - Create Currency Panel:
+        // Panel 1 - Create IN_CURRENCY_PANEL:
         IN_CURRENCY_PANEL = new JPanelCreator(PANEL_1_POS, CURRENCY_OPTIONS, true);
-        // Panel 2 - Create Currencies Panel:
+        // Panel 2 - Create OUT_CURRENCY_PANEL:
         OUT_CURRENCY_PANEL = new JPanelCreator(PANEL_2_POS, CURRENCY_OPTIONS, false);
         // Panel 3 - Create In Text Field:
         IN_VALUE = new JTextFieldCreator(PANEL_3_POS, false);
-        // Panel 4 - Create In Text Field:
+        // Panel 4 - Create Out Text Field:
         OUT_VALUE = new JTextFieldCreator(PANEL_4_POS, false);
 
         // Label 1 - Create "From" Label:
@@ -70,9 +70,9 @@ public class CurrencyConverter extends JFrame{
         BUTTON = new JButtonCreator(BUTTON_POS, GREEN_TICK,false, IN_VALUE, OUT_VALUE, RESULT_VALUE);
 
         // Add Category Panels to Background Label:
-            // Panel 1 - Currency Panel:
+            // Panel 1 - IN_CURRENCY_PANEL:
         bgImage.add(IN_CURRENCY_PANEL);
-            // Panel 2 - Currencies Panel:
+            // Panel 2 - OUT_CURRENCY_PANEL:
         bgImage.add(OUT_CURRENCY_PANEL);
             // Panel 3 - In Text Field:
         bgImage.add(IN_VALUE);
@@ -93,13 +93,12 @@ public class CurrencyConverter extends JFrame{
         labelList.add(INSERT_NUMBER_VALUE);
         labelList.add(RESULT_VALUE);
 
-        //Add ActionListener to Currency List:
+        // Add ActionListener to Panel 1 - IN_CURRENCY_PANEL JComboBox:
         IN_CURRENCY_PANEL.getOptionsComboBox().addActionListener(e -> {
             String selectedOption1 = (String) IN_CURRENCY_PANEL.getOptionsComboBox().getSelectedItem();
             if ("-Select an Option-".equals(selectedOption1)) {
                 OUT_CURRENCY_PANEL.setOptionsComboBox(CURRENCY_OPTIONS, "");
                 setPanelVisibility(labelList, new boolean[] {true, false, false, false});
-                //OUT_CURRENCY_PANEL.setVisible(true);
                 IN_VALUE.setVisible(false);
                 OUT_VALUE.setVisible(false);
                 BUTTON.setVisible(false);
@@ -111,7 +110,7 @@ public class CurrencyConverter extends JFrame{
             }
         });
 
-        //Add ActionListener to In Value Text Field:
+        //Add ActionListener to Panel 2 - OUT_CURRENCY_PANEL JComboBox:
         OUT_CURRENCY_PANEL.getOptionsComboBox().addActionListener(e -> {
             String selectedOption2 = (String) OUT_CURRENCY_PANEL.getOptionsComboBox().getSelectedItem();
             if ("-Select an Option-".equals(selectedOption2)) {
@@ -143,66 +142,7 @@ public class CurrencyConverter extends JFrame{
     }
 }
 
-/*
-currencyPanel.optionsComboBox.addActionListener(e -> {
-            String selectedOption = (String) currencyPanel.optionsComboBox.getSelectedItem();
-            // Show/Hide relevant Panel/Label based on selected option:
-            switch (Objects.requireNonNull(selectedOption)) {
-                case "-Select an Option-" -> {
-                    setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, false, false}, new boolean[] {true, false, false, false});
-                    inValue.setVisible(false);
-                    outValue.setVisible(false);
-                    button.setVisible(false);
-                }
-                case "Argentine Peso" -> {
-                    setPanelVisibility(currencyList, labelList, new boolean[] {false, true, false, false, false, false, false}, new boolean[] {true, true, false, false});
-                    button.setInCurrency(selectedOption);
-                }
-                case "Dollar" -> {
-                    setPanelVisibility(currencyList, labelList, new boolean[] {false, false, true, false, false, false, false}, new boolean[] {true, true, false, false});
-                    button.setInCurrency(selectedOption);
-                }
-                case "Euro" -> {
-                    setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, true, false, false, false}, new boolean[] {true, true, false, false});
-                    button.setInCurrency(selectedOption);
-                }
-                case "Pounds" -> {
-                    setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, true, false, false}, new boolean[] {true, true, false, false});
-                    button.setInCurrency(selectedOption);
-                }
-                case "Yen" -> {
-                    setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, true, false}, new boolean[] {true, true, false, false});
-                    button.setInCurrency(selectedOption);
-                }
-                case "Won" -> {
-                    setPanelVisibility(currencyList, labelList, new boolean[] {false, false, false, false, false, false, true}, new boolean[] {true, true, false, false});
-                    button.setInCurrency(selectedOption);
-                }
-            }
-        });
- */
 
-/*
-//Add ActionListener to In Value Text Field:
-        for (JPanelCreator panel : currencyList) {
-            JComboBox<String> options = panel.optionsComboBox;
-            options.addActionListener(e2 -> {
-                String selectedOption2 = (String) options.getSelectedItem();
-                if ("-Select an Option-".equals(selectedOption2)) {
-                    inValue.setVisible(false);
-                    insertValue.setVisible(false);
-                    button.setVisible(false);
-                    outValue.setVisible(false);
-                    resultValue.setVisible(false);
-                } else {
-                    inValue.setVisible(true);
-                    insertValue.setVisible(true);
-                    button.setVisible(true);
-                    button.setOutCurrency(selectedOption2);
-                }
-            });
-        }
- */
 
 /*
 public static void setPanelVisibility(LinkedList<JPanelCreator> panel, LinkedList<JLabelCreator> label, boolean[] panelVisibility, boolean[] labelVisibility) {
