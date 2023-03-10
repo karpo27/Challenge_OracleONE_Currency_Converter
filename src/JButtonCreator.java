@@ -36,8 +36,9 @@ public class JButtonCreator extends JPanel implements ActionListener {
         button.setBounds(0, 0, dimensions.width, dimensions.height);
         button.setIcon(image);
         button.addActionListener(this);
+        button.setFocusPainted(false);
 
-            // Aditional variables to control with Button:
+        // Additional variables to control with Button:
         this.inValue = inValue;
         this.outValue = outValue;
         this.result = result;

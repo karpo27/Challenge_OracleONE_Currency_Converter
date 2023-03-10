@@ -1,29 +1,40 @@
 // Java Modules:
 import javax.swing.*;
 import java.awt.*;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class JPanelCreator extends JPanel {
+    private final JComboBox<String> optionsComboBox;
 
-    public JComboBox<String> options;
-
-    public JPanelCreator(Rectangle dimensions, LinkedList<String> options, boolean visibility){
+    public JPanelCreator(Rectangle dimensions, String[] options, boolean visibility){
         // Set Panel Properties:
         new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.VERTICAL;
         setBounds(dimensions);
         setVisible(visibility);
-        gbc.gridy++;
 
         // Define JComboBox:
-        String[] optionsArray = options.toArray(new String[0]);
-        this.options = new JComboBox<>(optionsArray);
-        this.options.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        DefaultComboBoxModel<String> comboModel = new DefaultComboBoxModel<>(options);
+        this.optionsComboBox = new JComboBox<>(comboModel);
+        this.optionsComboBox.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
         // Add ComboBox to Panel:
-        add(this.options, gbc);
+        add(this.optionsComboBox);
+    }
+
+    public JComboBox<String> getOptionsComboBox() {
+        return this.optionsComboBox;
+    }
+
+    public void setOptionsComboBox(String[] options, String selectedOption) {
+        this.optionsComboBox.removeAllItems();
+
+        for (String option : options){
+            this.optionsComboBox.addItem(option);
+        }
+
+        if (selectedOption != null && !selectedOption.isEmpty()) {
+            this.optionsComboBox.removeItem(selectedOption);
+        }
     }
 }
