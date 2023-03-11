@@ -19,10 +19,10 @@ Table of Contents:
 
 ## Installation
 
-To run this application, you need to have Java installed on your computer. You can download Java from https://www.java.com. After installing Java, you can download the latest release of Currency Converter from this GitHub repository.
+To run this application, you need to have Java 19.0.2 installed on your computer. You can download Java from https://www.java.com. After installing Java, you can download the latest release of Currency Converter from this GitHub repository.
 
 ## Usage
-After downloading the application, you can run it by double-clicking the currency-converter.jar file. The graphical interface will appear on your screen. You can select the input and output currency from the dropdown menus, enter the numeric value to convert in the input field and press the "green tick" button. The converted value will appear in the output field.
+After downloading the application, you can run it by double-clicking the Currency Converter.exe file. The graphical interface will appear on your screen. You can select the input and output currency from the dropdown menus, enter the numeric value to convert in the input field and press the "green tick" button. The converted value will appear in the output field.
 
 ## Features
 - User-friendly graphical interface
