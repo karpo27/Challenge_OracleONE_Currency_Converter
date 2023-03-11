@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>C:\Users\julia\Desktop\Curso Alura-Oracle\Challenge Conversor de Monedas\out\artifacts\Challenge_Conversor_de_Monedas_jar\Challenge Conversor de Monedas.jar</jar>
+  <outfile>C:\Users\julia\Desktop\Curso Alura-Oracle\Challenge Conversor de Monedas\CurrencyConverter.exe</outfile>
+  <errTitle></errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl></downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon>C:\Users\julia\Desktop\Curso Alura-Oracle\Challenge Conversor de Monedas\logo16.ico</icon>
+  <classPath>
+    <mainClass>CurrencyConverter</mainClass>
+  </classPath>
+  <jre>
+    <path>%JAVA_HOME%;%PATH%</path>
+    <requiresJdk>false</requiresJdk>
+    <requires64Bit>false</requires64Bit>
+    <minVersion>19.0.2</minVersion>
+    <maxVersion></maxVersion>
+  </jre>
+</launch4jConfig>
