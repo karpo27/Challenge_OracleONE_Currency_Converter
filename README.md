@@ -10,12 +10,9 @@ Currency Converter is a Java application that allows users to convert between di
 Table of Contents:
 
 - [Installation](#Installation)
-
 - [Usage](#Usage)
-
-[Features](#Features)
-
-[Contributing](#Contributing)
+- [Features](#Features)
+- [Contributing](#Contributing)
 
 ## Installation
 
