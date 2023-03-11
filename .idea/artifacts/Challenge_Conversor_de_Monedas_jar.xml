@@ -2,7 +2,7 @@
   <artifact type="jar" name="Challenge Conversor de Monedas:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/Challenge_Conversor_de_Monedas_jar</output-path>
     <root id="archive" name="Challenge Conversor de Monedas.jar">
-      <element id="module-output" name="Challenge Conversor de Monedas" />
+      <element id="module-output" name="Challenge Currency Converter" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/google-api-client-gson-2.0.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/google-api-client-2.0.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/google-oauth-client-1.34.1.jar" path-in-jar="/" />
