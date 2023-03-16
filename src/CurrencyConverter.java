@@ -106,13 +106,13 @@ public class CurrencyConverter extends JFrame{
             String selectedOption = (String) IN_CURRENCY_PANEL.getOptionsComboBox().getSelectedItem();
             if ("-Select an Option-".equals(selectedOption)) {
                 OUT_CURRENCY_PANEL.setOptionsComboBox(CURRENCY_OPTIONS, "");
-                setLabelVisibility(labelList, new boolean[] {true, false, false, false});
-                setTextVisibility(textList, new boolean[] {false, false});
+                setVisibility(labelList, new boolean[] {true, false, false, false});
+                setVisibility(textList, new boolean[] {false, false});
                 IN_VALUE.setTextField("");
                 BUTTON.setVisible(false);
             } else {
                 OUT_CURRENCY_PANEL.setOptionsComboBox(CURRENCY_OPTIONS, selectedOption);
-                setLabelVisibility(labelList, new boolean[] {true, true, false, false});
+                setVisibility(labelList, new boolean[] {true, true, false, false});
                 OUT_CURRENCY_PANEL.setVisible(true);
                 BUTTON.setInCurrency(selectedOption);
             }
@@ -122,13 +122,13 @@ public class CurrencyConverter extends JFrame{
         OUT_CURRENCY_PANEL.getOptionsComboBox().addActionListener(e -> {
             String selectedOption = (String) OUT_CURRENCY_PANEL.getOptionsComboBox().getSelectedItem();
             if ("-Select an Option-".equals(selectedOption)) {
-                setLabelVisibility(labelList, new boolean[] {true, true, false, false});
-                setTextVisibility(textList, new boolean[] {false, false});
+                setVisibility(labelList, new boolean[] {true, true, false, false});
+                setVisibility(textList, new boolean[] {false, false});
                 IN_VALUE.setTextField("");
                 BUTTON.setVisible(false);
             } else {
-                setLabelVisibility(labelList, new boolean[] {true, true, true, false});
-                setTextVisibility(textList, new boolean[] {true, false});
+                setVisibility(labelList, new boolean[] {true, true, true, false});
+                setVisibility(textList, new boolean[] {true, false});
                 IN_VALUE.requestFocus();
                 BUTTON.setVisible(true);
                 BUTTON.setOutCurrency(selectedOption);
@@ -139,15 +139,9 @@ public class CurrencyConverter extends JFrame{
         setVisible(true);
     }
 
-    public static void setLabelVisibility(LinkedList<JLabelCreator> label, boolean[] labelVisibility) {
+    public static void setVisibility(LinkedList<? extends Component> label, boolean[] labelVisibility) {
         for (int i = 0; i < label.size(); i++){
             label.get(i).setVisible(labelVisibility[i]);
-        }
-    }
-
-    public static void setTextVisibility(LinkedList<JTextFieldCreator> textField, boolean[] textVisibility) {
-        for (int i = 0; i < textField.size(); i++){
-            textField.get(i).setVisible(textVisibility[i]);
         }
     }
 
