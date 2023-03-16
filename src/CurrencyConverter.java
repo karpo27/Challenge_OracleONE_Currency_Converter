@@ -245,10 +245,9 @@ public class CurrencyConverter extends JFrame{
 
         // Copy Button Actions:
         COPY_BUTTON.button.addActionListener(e-> {
-            String textToCopy = "Hello, world!";
-            StringSelection stringSelection = new StringSelection(textToCopy);
+            StringSelection textToCopy = new StringSelection(OUT_VALUE.getTextField());
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-            clipboard.setContents(stringSelection, null);
+            clipboard.setContents(textToCopy, null);
         });
 
         // Make Main Screen Visible:

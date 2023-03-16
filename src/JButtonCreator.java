@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class JButtonCreator extends JPanel {
-    JButton button;
+    final JButton button;
 
     public JButtonCreator(Rectangle dimensions, Icon image, boolean visibility) {
         // Set Panel Properties:
