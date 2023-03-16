@@ -121,7 +121,6 @@ public class CurrencyConverter extends JFrame{
                 setVisibility(textList, new boolean[] {false, false});
                 setVisibility(buttonList, new boolean[] {false, false});
                 IN_VALUE.setTextField("");
-                //CONVERT_BUTTON.setVisible(false);
             } else {
                 OUT_CURRENCY_PANEL.setOptionsComboBox(CURRENCY_OPTIONS, selectedOption);
                 setVisibility(labelList, new boolean[] {true, true, false, false});
@@ -138,13 +137,11 @@ public class CurrencyConverter extends JFrame{
                 setVisibility(textList, new boolean[] {false, false});
                 setVisibility(buttonList, new boolean[] {false, false});
                 IN_VALUE.setTextField("");
-                //CONVERT_BUTTON.setVisible(false);
             } else {
                 setVisibility(labelList, new boolean[] {true, true, true, false});
                 setVisibility(textList, new boolean[] {true, false});
                 setVisibility(buttonList, new boolean[] {true, true});
                 IN_VALUE.requestFocus();
-                //CONVERT_BUTTON.setVisible(true);
                 CONVERT_BUTTON.setOutCurrency(selectedOption);
             }
         });
