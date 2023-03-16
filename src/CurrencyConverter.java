@@ -11,13 +11,15 @@ public class CurrencyConverter extends JFrame{
     static final ImageIcon BG_IMAGE = new ImageIcon(Toolkit.getDefaultToolkit().getImage(
             CurrencyConverter.class.getResource("/assets/background_alura.png")));
     final ImageIcon GREEN_TICK = new ImageIcon(Objects.requireNonNull(getClass().getResource("/assets/greenTick.png")));
+    final ImageIcon CLEAN = new ImageIcon(Objects.requireNonNull(getClass().getResource("/assets/clean.png")));
     private final JPanelCreator IN_CURRENCY_PANEL;
     private final JPanelCreator OUT_CURRENCY_PANEL;
     private final JTextFieldCreator IN_VALUE;
     private final JTextFieldCreator OUT_VALUE;
     private final JLabelCreator INSERT_NUMBER_VALUE;
     private final JLabelCreator RESULT_VALUE;
-    private final JButtonCreator BUTTON;
+    private final JButtonCreator CONVERT_BUTTON;
+    private final JButtonCreator CLEAN_BUTTON;
     final int X = WIDTH/2 - 198;
     final int Y = 41;
     final int W = 147;
@@ -30,7 +32,8 @@ public class CurrencyConverter extends JFrame{
     final Rectangle LABEL_2_POS = new Rectangle(X - 25, Y + H - 3, W, Y);
     final Rectangle LABEL_3_POS = new Rectangle(X - 120, Y + 2 * H - 6, W, Y);
     final Rectangle LABEL_4_POS = new Rectangle(X - 54, Y + 3 * H - 7, W, Y);
-    final Rectangle BUTTON_POS = new Rectangle(X + 155, Y + 2 * H, 30, Y - 12);
+    final Rectangle BUTTON_1_POS = new Rectangle(X + 155, Y + 2 * H, 30, Y - 12);
+    final Rectangle BUTTON_2_POS = new Rectangle(X + 195, Y + 2 * H, 30, Y - 12);
 
     // Panel 1: Currencies:
     private final String[] CURRENCY_OPTIONS = {"-Select an Option-", "Argentina Peso", "Brazil Real", "Chile Peso",
@@ -69,8 +72,10 @@ public class CurrencyConverter extends JFrame{
         // Label 4 - Create "Result" Label:
         RESULT_VALUE = new JLabelCreator(LABEL_4_POS, "Result", false, 14);
 
-        // Button - Create BUTTON:
-        BUTTON = new JButtonCreator(BUTTON_POS, GREEN_TICK,false, IN_VALUE, OUT_VALUE, RESULT_VALUE);
+        // Button 1 - Create "Convert" Button:
+        CONVERT_BUTTON = new JButtonCreator(BUTTON_1_POS, GREEN_TICK,false, IN_VALUE, OUT_VALUE, RESULT_VALUE, "converter");
+        // Button 1 - Create "Convert" Button:
+        CLEAN_BUTTON = new JButtonCreator(BUTTON_2_POS, CLEAN,false, IN_VALUE, OUT_VALUE, RESULT_VALUE, "clean");
 
         // Add Category Panels to Background Label:
             // Panel 1 - IN_CURRENCY_PANEL:
@@ -86,8 +91,9 @@ public class CurrencyConverter extends JFrame{
         bgImage.add(to);
         bgImage.add(INSERT_NUMBER_VALUE);
         bgImage.add(RESULT_VALUE);
-        // Add Button to Background Label:
-        bgImage.add(BUTTON);
+        // Add ButtonS to Background Label:
+        bgImage.add(CONVERT_BUTTON);
+        bgImage.add(CLEAN_BUTTON);
 
         // Create Text Field List for setting text panel visibility:
         LinkedList<JTextFieldCreator> textList = new LinkedList<>();
@@ -101,6 +107,11 @@ public class CurrencyConverter extends JFrame{
         labelList.add(INSERT_NUMBER_VALUE);
         labelList.add(RESULT_VALUE);
 
+        // Create Button List for setting button panel visibility:
+        LinkedList<JButtonCreator> buttonList = new LinkedList<>();
+        buttonList.add(CONVERT_BUTTON);
+        buttonList.add(CLEAN_BUTTON);
+
         // Add ActionListener to Panel 1 - IN_CURRENCY_PANEL JComboBox:
         IN_CURRENCY_PANEL.getOptionsComboBox().addActionListener(e -> {
             String selectedOption = (String) IN_CURRENCY_PANEL.getOptionsComboBox().getSelectedItem();
@@ -108,13 +119,14 @@ public class CurrencyConverter extends JFrame{
                 OUT_CURRENCY_PANEL.setOptionsComboBox(CURRENCY_OPTIONS, "");
                 setVisibility(labelList, new boolean[] {true, false, false, false});
                 setVisibility(textList, new boolean[] {false, false});
+                setVisibility(buttonList, new boolean[] {false, false});
                 IN_VALUE.setTextField("");
-                BUTTON.setVisible(false);
+                //CONVERT_BUTTON.setVisible(false);
             } else {
                 OUT_CURRENCY_PANEL.setOptionsComboBox(CURRENCY_OPTIONS, selectedOption);
                 setVisibility(labelList, new boolean[] {true, true, false, false});
                 OUT_CURRENCY_PANEL.setVisible(true);
-                BUTTON.setInCurrency(selectedOption);
+                CONVERT_BUTTON.setInCurrency(selectedOption);
             }
         });
 
@@ -124,14 +136,16 @@ public class CurrencyConverter extends JFrame{
             if ("-Select an Option-".equals(selectedOption)) {
                 setVisibility(labelList, new boolean[] {true, true, false, false});
                 setVisibility(textList, new boolean[] {false, false});
+                setVisibility(buttonList, new boolean[] {false, false});
                 IN_VALUE.setTextField("");
-                BUTTON.setVisible(false);
+                //CONVERT_BUTTON.setVisible(false);
             } else {
                 setVisibility(labelList, new boolean[] {true, true, true, false});
                 setVisibility(textList, new boolean[] {true, false});
+                setVisibility(buttonList, new boolean[] {true, true});
                 IN_VALUE.requestFocus();
-                BUTTON.setVisible(true);
-                BUTTON.setOutCurrency(selectedOption);
+                //CONVERT_BUTTON.setVisible(true);
+                CONVERT_BUTTON.setOutCurrency(selectedOption);
             }
         });
 

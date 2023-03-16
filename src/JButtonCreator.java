@@ -15,6 +15,7 @@ public class JButtonCreator extends JPanel implements ActionListener {
     private final JTextFieldCreator inValue;
     private final JTextFieldCreator outValue;
     private final JLabelCreator result;
+    private final String action;
     private final HashMap<String, String> CURRENCY_SYMBOLS = new HashMap<>() {{
         put("Argentina Peso", "ARS");
         put("Brazil Real", "BRL");
@@ -35,7 +36,7 @@ public class JButtonCreator extends JPanel implements ActionListener {
     private String inCurrency;
     private String outCurrency;
 
-    public JButtonCreator(Rectangle dimensions, Icon image, boolean visibility, JTextFieldCreator inValue, JTextFieldCreator outValue, JLabelCreator result) {
+    public JButtonCreator(Rectangle dimensions, Icon image, boolean visibility, JTextFieldCreator inValue, JTextFieldCreator outValue, JLabelCreator result, String action) {
         // Set Panel Properties:
         setLayout(null);
         setBounds(dimensions);
@@ -51,6 +52,7 @@ public class JButtonCreator extends JPanel implements ActionListener {
         this.inValue = inValue;
         this.outValue = outValue;
         this.result = result;
+        this.action = action;
 
         // Add Button to Panel and Set Visibility:
         add(button);
@@ -70,54 +72,59 @@ public class JButtonCreator extends JPanel implements ActionListener {
         // Get the text from the TextField:
         String text = this.inValue.getTextField();
 
-        // Check if text contains "-" or "+":
-        if (text.indexOf('-') == -1 && text.indexOf('+') == -1) {
-            // Attempt to parse the text as a number:
-            try {
-                double number = Double.parseDouble(text);
+        switch (action) {
+            case "converter":
+                // Check if text contains "-" or "+":
+                if (text.indexOf('-') == -1 && text.indexOf('+') == -1) {
+                    // Attempt to parse the text as a number:
+                    try {
+                        double number = Double.parseDouble(text);
 
-                // Set URL request for API Currencies:
-                String urlString = "https://api.exchangerate.host/convert?from=" + this.inCurrency + "&to=" + this.outCurrency;
-                URL url = new URL(urlString);
-                HttpURLConnection request = (HttpURLConnection) url.openConnection();
-                request.connect();
+                        // Set URL request for API Currencies:
+                        String urlString = "https://api.exchangerate.host/convert?from=" + this.inCurrency + "&to=" + this.outCurrency;
+                        URL url = new URL(urlString);
+                        HttpURLConnection request = (HttpURLConnection) url.openConnection();
+                        request.connect();
 
-                // Read the JSON response from the input stream
-                InputStreamReader isr = new InputStreamReader(request.getInputStream());
-                BufferedReader br = new BufferedReader(isr);
-                StringBuilder sb = new StringBuilder();
-                String line;
-                while ((line = br.readLine()) != null) {
-                    sb.append(line);
+                        // Read the JSON response from the input stream
+                        InputStreamReader isr = new InputStreamReader(request.getInputStream());
+                        BufferedReader br = new BufferedReader(isr);
+                        StringBuilder sb = new StringBuilder();
+                        String line;
+                        while ((line = br.readLine()) != null) {
+                            sb.append(line);
+                        }
+                        String jsonString = sb.toString();
+
+                        // Create a Gson object:
+                        Gson gson = new Gson();
+
+                        // Parse the JSON string into a JsonObject:
+                        JsonObject jsonObject = gson.fromJson(jsonString, JsonObject.class);
+
+                        // Access the "result" field using the get() method and round the result:
+                        double result = jsonObject.get("result").getAsDouble() * number;
+                        double roundedResult = Math.round(result * 100.0) / 100.0;
+                        String stringResult = this.outCurrency + " " + roundedResult;
+
+                        // Disconnect the request:
+                        request.disconnect();
+
+                        // Show successful conversion message:
+                        this.outValue.setTextField(stringResult);
+                        this.outValue.setVisible(true);
+                        this.result.setVisible(true);
+
+                    } catch (NumberFormatException | IOException ex) {
+                        // Show error message
+                        JOptionPane.showMessageDialog(this, "Please enter a valid number", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    // Show error message
+                    JOptionPane.showMessageDialog(this, "Please enter a valid number", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                String jsonString = sb.toString();
-
-                // Create a Gson object:
-                Gson gson = new Gson();
-
-                // Parse the JSON string into a JsonObject:
-                JsonObject jsonObject = gson.fromJson(jsonString, JsonObject.class);
-
-                // Access the "result" field using the get() method and round the result:
-                double result = jsonObject.get("result").getAsDouble() * number;
-                double roundedResult = Math.round(result * 100.0) / 100.0;
-                String stringResult = this.outCurrency + " " + roundedResult;
-
-                // Disconnect the request:
-                request.disconnect();
-
-                // Show successful conversion message:
-                this.outValue.setTextField(stringResult);
-                this.outValue.setVisible(true);
-                this.result.setVisible(true);
-
-            } catch (NumberFormatException | IOException ex) {
-                // Show error message
-                JOptionPane.showMessageDialog(this, "Please enter a valid number", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            // Show error message
-            JOptionPane.showMessageDialog(this, "Please enter a valid number", "Error", JOptionPane.ERROR_MESSAGE);
+            case "clean":
+                this.inValue.setTextField("");
         }
     }
 }
