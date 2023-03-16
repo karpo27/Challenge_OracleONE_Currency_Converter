@@ -51,6 +51,7 @@ public class CurrencyConverter extends JFrame{
         add(bgImage);
 
         // Panel 1 - Create IN_CURRENCY_PANEL:
+        Arrays.sort(CURRENCY_OPTIONS);
         IN_CURRENCY_PANEL = new JPanelCreator(PANEL_1_POS, CURRENCY_OPTIONS, true);
         // Panel 2 - Create OUT_CURRENCY_PANEL:
         OUT_CURRENCY_PANEL = new JPanelCreator(PANEL_2_POS, CURRENCY_OPTIONS, false);
