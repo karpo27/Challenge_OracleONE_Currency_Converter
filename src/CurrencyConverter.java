@@ -74,7 +74,7 @@ public class CurrencyConverter extends JFrame{
 
         // Button 1 - Create "Convert" Button:
         CONVERT_BUTTON = new JButtonCreator(BUTTON_1_POS, GREEN_TICK,false, IN_VALUE, OUT_VALUE, RESULT_VALUE, "converter");
-        // Button 1 - Create "Convert" Button:
+        // Button 2 - Create "Clean" Button:
         CLEAN_BUTTON = new JButtonCreator(BUTTON_2_POS, CLEAN,false, IN_VALUE, OUT_VALUE, RESULT_VALUE, "clean");
 
         // Add Category Panels to Background Label:
