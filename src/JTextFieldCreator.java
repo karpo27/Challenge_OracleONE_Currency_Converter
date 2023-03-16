@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class JTextFieldCreator extends JPanel {
-    private final JTextField textField;
+    JTextField textField;
 
     public JTextFieldCreator(Rectangle dimensions, boolean visibility){
         // Set Panel Properties:

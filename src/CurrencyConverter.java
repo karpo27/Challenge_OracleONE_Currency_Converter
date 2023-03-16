@@ -1,7 +1,13 @@
 // Java Modules:
-import java.awt.*;
-import java.util.*;
 import javax.swing.*;
+import java.util.*;
+import java.awt.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+import java.io.*;
+import java.net.*;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 public class CurrencyConverter extends JFrame{
     final int WIDTH = 700;
@@ -12,6 +18,7 @@ public class CurrencyConverter extends JFrame{
             CurrencyConverter.class.getResource("/assets/background_alura.png")));
     final ImageIcon GREEN_TICK = new ImageIcon(Objects.requireNonNull(getClass().getResource("/assets/greenTick.png")));
     final ImageIcon CLEAN = new ImageIcon(Objects.requireNonNull(getClass().getResource("/assets/clean.png")));
+    final ImageIcon COPY = new ImageIcon(Objects.requireNonNull(getClass().getResource("/assets/copy.png")));
     private final JPanelCreator IN_CURRENCY_PANEL;
     private final JPanelCreator OUT_CURRENCY_PANEL;
     private final JTextFieldCreator IN_VALUE;
@@ -20,6 +27,7 @@ public class CurrencyConverter extends JFrame{
     private final JLabelCreator RESULT_VALUE;
     private final JButtonCreator CONVERT_BUTTON;
     private final JButtonCreator CLEAN_BUTTON;
+    private final JButtonCreator COPY_BUTTON;
     final int X = WIDTH/2 - 198;
     final int Y = 41;
     final int W = 147;
@@ -34,11 +42,30 @@ public class CurrencyConverter extends JFrame{
     final Rectangle LABEL_4_POS = new Rectangle(X - 54, Y + 3 * H - 7, W, Y);
     final Rectangle BUTTON_1_POS = new Rectangle(X + 155, Y + 2 * H, 30, Y - 12);
     final Rectangle BUTTON_2_POS = new Rectangle(X + 195, Y + 2 * H, 30, Y - 12);
-
-    // Panel 1: Currencies:
+    final Rectangle BUTTON_3_POS = new Rectangle(X + 155, Y + 3 * H, 30, Y - 12);
     private final String[] CURRENCY_OPTIONS = {"-Select an Option-", "Argentina Peso", "Brazil Real", "Chile Peso",
             "Uruguay Peso", "Paraguay Guarani", "Bolivia Boliviano", "Peru Sol", "Colombia Peso", "US Dollar",
             "Venezuela Bolivar", "Mexico Peso", "Euro", "Pounds", "Japan Yen", "Korea Won"};
+    private final HashMap<String, String> CURRENCY_SYMBOLS = new HashMap<>() {{
+        put("Argentina Peso", "ARS");
+        put("Brazil Real", "BRL");
+        put("Chile Peso", "CLP");
+        put("Uruguay Peso", "UYU");
+        put("Paraguay Guarani", "PYG");
+        put("Bolivia Boliviano", "BOB");
+        put("Peru Sol", "PEN");
+        put("Colombia Peso", "COP");
+        put("Venezuela Bolivar", "VES");
+        put("Mexico Peso", "MXN");
+        put("US Dollar", "USD");
+        put("Euro", "EUR");
+        put("Pounds", "GBP");
+        put("Japan Yen", "JPY");
+        put("Korea Won", "KRW");
+    }};
+
+    private String inCurrency;
+    private String outCurrency;
 
     public CurrencyConverter() {
         // Create Main Screen:
@@ -73,9 +100,11 @@ public class CurrencyConverter extends JFrame{
         RESULT_VALUE = new JLabelCreator(LABEL_4_POS, "Result", false, 14);
 
         // Button 1 - Create "Convert" Button:
-        CONVERT_BUTTON = new JButtonCreator(BUTTON_1_POS, GREEN_TICK,false, IN_VALUE, OUT_VALUE, RESULT_VALUE, "converter");
+        CONVERT_BUTTON = new JButtonCreator(BUTTON_1_POS, GREEN_TICK,false);
         // Button 2 - Create "Clean" Button:
-        CLEAN_BUTTON = new JButtonCreator(BUTTON_2_POS, CLEAN,false, IN_VALUE, OUT_VALUE, RESULT_VALUE, "clean");
+        CLEAN_BUTTON = new JButtonCreator(BUTTON_2_POS, CLEAN,false);
+        // Button 3 - Create "Copy" Button:
+        COPY_BUTTON = new JButtonCreator(BUTTON_3_POS, COPY,false);
 
         // Add Category Panels to Background Label:
             // Panel 1 - IN_CURRENCY_PANEL:
@@ -94,6 +123,7 @@ public class CurrencyConverter extends JFrame{
         // Add ButtonS to Background Label:
         bgImage.add(CONVERT_BUTTON);
         bgImage.add(CLEAN_BUTTON);
+        bgImage.add(COPY_BUTTON);
 
         // Create Text Field List for setting text panel visibility:
         LinkedList<JTextFieldCreator> textList = new LinkedList<>();
@@ -111,6 +141,7 @@ public class CurrencyConverter extends JFrame{
         LinkedList<JButtonCreator> buttonList = new LinkedList<>();
         buttonList.add(CONVERT_BUTTON);
         buttonList.add(CLEAN_BUTTON);
+        buttonList.add(COPY_BUTTON);
 
         // Add ActionListener to Panel 1 - IN_CURRENCY_PANEL JComboBox:
         IN_CURRENCY_PANEL.getOptionsComboBox().addActionListener(e -> {
@@ -119,13 +150,13 @@ public class CurrencyConverter extends JFrame{
                 OUT_CURRENCY_PANEL.setOptionsComboBox(CURRENCY_OPTIONS, "");
                 setVisibility(labelList, new boolean[] {true, false, false, false});
                 setVisibility(textList, new boolean[] {false, false});
-                setVisibility(buttonList, new boolean[] {false, false});
+                setVisibility(buttonList, new boolean[] {false, false, false});
                 IN_VALUE.setTextField("");
             } else {
                 OUT_CURRENCY_PANEL.setOptionsComboBox(CURRENCY_OPTIONS, selectedOption);
                 setVisibility(labelList, new boolean[] {true, true, false, false});
                 OUT_CURRENCY_PANEL.setVisible(true);
-                CONVERT_BUTTON.setInCurrency(selectedOption);
+                inCurrency = CURRENCY_SYMBOLS.get(selectedOption);
             }
         });
 
@@ -135,15 +166,89 @@ public class CurrencyConverter extends JFrame{
             if ("-Select an Option-".equals(selectedOption)) {
                 setVisibility(labelList, new boolean[] {true, true, false, false});
                 setVisibility(textList, new boolean[] {false, false});
-                setVisibility(buttonList, new boolean[] {false, false});
+                setVisibility(buttonList, new boolean[] {false, false, false});
                 IN_VALUE.setTextField("");
             } else {
                 setVisibility(labelList, new boolean[] {true, true, true, false});
                 setVisibility(textList, new boolean[] {true, false});
-                setVisibility(buttonList, new boolean[] {true, true});
+                setVisibility(buttonList, new boolean[] {true, true, false});
                 IN_VALUE.requestFocus();
-                CONVERT_BUTTON.setOutCurrency(selectedOption);
+                outCurrency = CURRENCY_SYMBOLS.get(selectedOption);
             }
+        });
+
+        // Convert Button Actions:
+        CONVERT_BUTTON.button.addActionListener(e-> {
+            // Get the text from the TextField:
+            String text = IN_VALUE.getTextField();
+
+            // Check if text contains "-" or "+":
+            if (text.indexOf('-') == -1 && text.indexOf('+') == -1) {
+                // Attempt to parse the text as a number:
+                try {
+                    double number = Double.parseDouble(text);
+
+                    // Set URL request for API Currencies:
+                    String urlString = "https://api.exchangerate.host/convert?from=" + inCurrency + "&to=" + outCurrency;
+                    URL url = new URL(urlString);
+                    HttpURLConnection request = (HttpURLConnection) url.openConnection();
+                    request.connect();
+
+                    // Read the JSON response from the input stream
+                    InputStreamReader isr = new InputStreamReader(request.getInputStream());
+                    BufferedReader br = new BufferedReader(isr);
+                    StringBuilder sb = new StringBuilder();
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line);
+                    }
+                    String jsonString = sb.toString();
+
+                    // Create a Gson object:
+                    Gson gson = new Gson();
+
+                    // Parse the JSON string into a JsonObject:
+                    JsonObject jsonObject = gson.fromJson(jsonString, JsonObject.class);
+
+                    // Access the "result" field using the get() method and round the result:
+                    double result = jsonObject.get("result").getAsDouble() * number;
+                    double roundedResult = Math.round(result * 100.0) / 100.0;
+                    String stringResult = outCurrency + " " + roundedResult;
+
+                    // Disconnect the request:
+                    request.disconnect();
+
+                    // Show successful conversion:
+                    OUT_VALUE.setTextField(stringResult);
+                    OUT_VALUE.setVisible(true);
+                    RESULT_VALUE.setVisible(true);
+                    COPY_BUTTON.setVisible(true);
+
+                } catch (NumberFormatException | IOException ex) {
+                    // Show error message
+                    JOptionPane.showMessageDialog(this, "Please enter a valid number", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                // Show error message
+                JOptionPane.showMessageDialog(this, "Please enter a valid number", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        // Clean Button Actions:
+        CLEAN_BUTTON.button.addActionListener(e-> {
+            IN_VALUE.setTextField("");
+            OUT_VALUE.setVisible(false);
+            RESULT_VALUE.setVisible(false);
+            IN_VALUE.requestFocus();
+            COPY_BUTTON.setVisible(false);
+        });
+
+        // Copy Button Actions:
+        COPY_BUTTON.button.addActionListener(e-> {
+            String textToCopy = "Hello, world!";
+            StringSelection stringSelection = new StringSelection(textToCopy);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, null);
         });
 
         // Make Main Screen Visible:
