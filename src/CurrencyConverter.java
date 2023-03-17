@@ -21,10 +21,12 @@ public class CurrencyConverter extends JFrame{
     final ImageIcon COPY = new ImageIcon(Objects.requireNonNull(getClass().getResource("/assets/copy.png")));
     private final JPanelCreator IN_CURRENCY_PANEL;
     private final JPanelCreator OUT_CURRENCY_PANEL;
-    final JTextFieldCreator IN_VALUE;
-    final JTextFieldCreator OUT_VALUE;
-    final JLabelCreator INSERT_NUMBER_VALUE;
-    final JLabelCreator RESULT_VALUE;
+    final JTextFieldCreator IN_VALUE_PANEL;
+    final JTextFieldCreator OUT_VALUE_PANEL;
+    final JLabelCreator FROM_LABEL;
+    final JLabelCreator TO_LABEL;
+    final JLabelCreator INSERT_NUMBER_LABEL;
+    final JLabelCreator RESULT_LABEL;
     final JButtonCreator CONVERT_BUTTON;
     final JButtonCreator CLEAN_BUTTON;
     final JButtonCreator COPY_BUTTON;
@@ -85,18 +87,18 @@ public class CurrencyConverter extends JFrame{
         // Panel 2 - Create OUT_CURRENCY_PANEL:
         OUT_CURRENCY_PANEL = new JPanelCreator(PANEL_2_POS, CURRENCY_OPTIONS, false);
         // Panel 3 - Create In Text Field:
-        IN_VALUE = new JTextFieldCreator(PANEL_3_POS, false);
+        IN_VALUE_PANEL = new JTextFieldCreator(PANEL_3_POS, false);
         // Panel 4 - Create Out Text Field:
-        OUT_VALUE = new JTextFieldCreator(PANEL_4_POS, false);
+        OUT_VALUE_PANEL = new JTextFieldCreator(PANEL_4_POS, false);
 
         // Label 1 - Create "From" Label:
-        JLabelCreator from = new JLabelCreator(LABEL_1_POS, "From", true, 14);
+        FROM_LABEL = new JLabelCreator(LABEL_1_POS, "From", true, 14);
         // Label 2 - Create "To" Label:
-        JLabelCreator to = new JLabelCreator(LABEL_2_POS, "To", false, 14);
+        TO_LABEL = new JLabelCreator(LABEL_2_POS, "To", false, 14);
         // Label 3 - Create "Insert a Number" Label:
-        INSERT_NUMBER_VALUE = new JLabelCreator(LABEL_3_POS, "Insert a Number", false, 14);
+        INSERT_NUMBER_LABEL = new JLabelCreator(LABEL_3_POS, "Insert a Number", false, 14);
         // Label 4 - Create "Result" Label:
-        RESULT_VALUE = new JLabelCreator(LABEL_4_POS, "Result", false, 14);
+        RESULT_LABEL = new JLabelCreator(LABEL_4_POS, "Result", false, 14);
 
         // Button 1 - Create "Convert" Button:
         CONVERT_BUTTON = new JButtonCreator(BUTTON_1_POS, GREEN_TICK,false);
@@ -111,14 +113,14 @@ public class CurrencyConverter extends JFrame{
             // Panel 2 - OUT_CURRENCY_PANEL:
         bgImage.add(OUT_CURRENCY_PANEL);
             // Panel 3 - In Text Field:
-        bgImage.add(IN_VALUE);
+        bgImage.add(IN_VALUE_PANEL);
             // Panel 4 - Out Text Field:
-        bgImage.add(OUT_VALUE);
+        bgImage.add(OUT_VALUE_PANEL);
         // Add Labels to Background Label:
-        bgImage.add(from);
-        bgImage.add(to);
-        bgImage.add(INSERT_NUMBER_VALUE);
-        bgImage.add(RESULT_VALUE);
+        bgImage.add(FROM_LABEL);
+        bgImage.add(TO_LABEL);
+        bgImage.add(INSERT_NUMBER_LABEL);
+        bgImage.add(RESULT_LABEL);
         // Add ButtonS to Background Label:
         bgImage.add(CONVERT_BUTTON);
         bgImage.add(CLEAN_BUTTON);
@@ -126,15 +128,15 @@ public class CurrencyConverter extends JFrame{
 
         // Create Text Field List for setting text panel visibility:
         LinkedList<JTextFieldCreator> textList = new LinkedList<>();
-        textList.add(IN_VALUE);
-        textList.add(OUT_VALUE);
+        textList.add(IN_VALUE_PANEL);
+        textList.add(OUT_VALUE_PANEL);
 
         // Create Label List for setting label panel visibility:
         LinkedList<JLabelCreator> labelList = new LinkedList<>();
-        labelList.add(from);
-        labelList.add(to);
-        labelList.add(INSERT_NUMBER_VALUE);
-        labelList.add(RESULT_VALUE);
+        labelList.add(FROM_LABEL);
+        labelList.add(TO_LABEL);
+        labelList.add(INSERT_NUMBER_LABEL);
+        labelList.add(RESULT_LABEL);
 
         // Create Button List for setting button panel visibility:
         LinkedList<JButtonCreator> buttonList = new LinkedList<>();
@@ -150,7 +152,7 @@ public class CurrencyConverter extends JFrame{
                 setVisibility(labelList, new boolean[] {true, false, false, false});
                 setVisibility(textList, new boolean[] {false, false});
                 setVisibility(buttonList, new boolean[] {false, false, false});
-                IN_VALUE.setTextField("");
+                IN_VALUE_PANEL.setTextField("");
             } else {
                 OUT_CURRENCY_PANEL.setOptionsComboBox(CURRENCY_OPTIONS, selectedOption);
                 setVisibility(labelList, new boolean[] {true, true, false, false});
@@ -166,12 +168,12 @@ public class CurrencyConverter extends JFrame{
                 setVisibility(labelList, new boolean[] {true, true, false, false});
                 setVisibility(textList, new boolean[] {false, false});
                 setVisibility(buttonList, new boolean[] {false, false, false});
-                IN_VALUE.setTextField("");
+                IN_VALUE_PANEL.setTextField("");
             } else {
                 setVisibility(labelList, new boolean[] {true, true, true, false});
                 setVisibility(textList, new boolean[] {true, false});
                 setVisibility(buttonList, new boolean[] {true, true, false});
-                IN_VALUE.requestFocus();
+                IN_VALUE_PANEL.requestFocus();
                 outCurrency = CURRENCY_SYMBOLS.get(selectedOption);
             }
         });
@@ -179,7 +181,7 @@ public class CurrencyConverter extends JFrame{
         // Convert Button Actions:
         CONVERT_BUTTON.button.addActionListener(e-> {
             // Get the text from the TextField:
-            String text = IN_VALUE.getTextField();
+            String text = IN_VALUE_PANEL.getTextField();
 
             // Check if text contains "-" or "+":
             if (text.indexOf('-') == -1 && text.indexOf('+') == -1) {
@@ -218,9 +220,9 @@ public class CurrencyConverter extends JFrame{
                     request.disconnect();
 
                     // Show successful conversion:
-                    OUT_VALUE.setTextField(stringResult);
-                    OUT_VALUE.setVisible(true);
-                    RESULT_VALUE.setVisible(true);
+                    OUT_VALUE_PANEL.setTextField(stringResult);
+                    OUT_VALUE_PANEL.setVisible(true);
+                    RESULT_LABEL.setVisible(true);
                     COPY_BUTTON.setVisible(true);
 
                 } catch (NumberFormatException | IOException ex) {
@@ -235,16 +237,16 @@ public class CurrencyConverter extends JFrame{
 
         // Clean Button Actions:
         CLEAN_BUTTON.button.addActionListener(e-> {
-            IN_VALUE.setTextField("");
-            OUT_VALUE.setVisible(false);
-            RESULT_VALUE.setVisible(false);
-            IN_VALUE.requestFocus();
+            IN_VALUE_PANEL.setTextField("");
+            OUT_VALUE_PANEL.setVisible(false);
+            RESULT_LABEL.setVisible(false);
+            IN_VALUE_PANEL.requestFocus();
             COPY_BUTTON.setVisible(false);
         });
 
         // Copy Button Actions:
         COPY_BUTTON.button.addActionListener(e-> {
-            StringSelection textToCopy = new StringSelection(OUT_VALUE.getTextField());
+            StringSelection textToCopy = new StringSelection(OUT_VALUE_PANEL.getTextField());
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
             clipboard.setContents(textToCopy, null);
         });
