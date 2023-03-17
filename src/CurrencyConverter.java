@@ -19,6 +19,7 @@ public class CurrencyConverter extends JFrame{
     final ImageIcon GREEN_TICK = new ImageIcon(Objects.requireNonNull(getClass().getResource("/assets/greenTick.png")));
     final ImageIcon CLEAN = new ImageIcon(Objects.requireNonNull(getClass().getResource("/assets/clean.png")));
     final ImageIcon COPY = new ImageIcon(Objects.requireNonNull(getClass().getResource("/assets/copy.png")));
+    final ImageIcon QUESTION_MARK = new ImageIcon(Objects.requireNonNull(getClass().getResource("/assets/question_mark.png")));
     private final JPanelCreator IN_CURRENCY_PANEL;
     private final JPanelCreator OUT_CURRENCY_PANEL;
     final JTextFieldCreator IN_VALUE_PANEL;
@@ -30,6 +31,7 @@ public class CurrencyConverter extends JFrame{
     final JButtonCreator CONVERT_BUTTON;
     final JButtonCreator CLEAN_BUTTON;
     final JButtonCreator COPY_BUTTON;
+    final JButtonCreator QUESTION_MARK_BUTTON;
     final int X = WIDTH/2 - 198;
     final int Y = 41;
     final int W = 147;
@@ -45,6 +47,7 @@ public class CurrencyConverter extends JFrame{
     final Rectangle BUTTON_1_POS = new Rectangle(X + 155, Y + 2 * H, 30, Y - 12);
     final Rectangle BUTTON_2_POS = new Rectangle(X + 195, Y + 2 * H, 30, Y - 12);
     final Rectangle BUTTON_3_POS = new Rectangle(X + 155, Y + 3 * H, 30, Y - 12);
+    final Rectangle BUTTON_4_POS = new Rectangle(X + 450, Y - 34, 24, Y - 17);
     private final String[] CURRENCY_OPTIONS = {"-Select an Option-", "Argentina Peso", "Brazil Real", "Chile Peso",
             "Uruguay Peso", "Paraguay Guarani", "Bolivia Boliviano", "Peru Sol", "Colombia Peso", "US Dollar",
             "Venezuela Bolivar", "Mexico Peso", "Euro", "Pounds", "Japan Yen", "Korea Won"};
@@ -106,6 +109,8 @@ public class CurrencyConverter extends JFrame{
         CLEAN_BUTTON = new JButtonCreator(BUTTON_2_POS, CLEAN,false);
         // Button 3 - Create "Copy" Button:
         COPY_BUTTON = new JButtonCreator(BUTTON_3_POS, COPY,false);
+        // Button 4 - Create "Question Mark" Button:
+        QUESTION_MARK_BUTTON = new JButtonCreator(BUTTON_4_POS, QUESTION_MARK,true);
 
         // Add Category Panels to Background Label:
             // Panel 1 - IN_CURRENCY_PANEL:
@@ -125,6 +130,7 @@ public class CurrencyConverter extends JFrame{
         bgImage.add(CONVERT_BUTTON);
         bgImage.add(CLEAN_BUTTON);
         bgImage.add(COPY_BUTTON);
+        bgImage.add(QUESTION_MARK_BUTTON);
 
         // Create Text Field List for setting text panel visibility:
         LinkedList<JTextFieldCreator> textList = new LinkedList<>();
@@ -249,6 +255,17 @@ public class CurrencyConverter extends JFrame{
             StringSelection textToCopy = new StringSelection(OUT_VALUE_PANEL.getTextField());
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
             clipboard.setContents(textToCopy, null);
+        });
+
+        // Question Mark Button Actions:
+        QUESTION_MARK_BUTTON.button.addActionListener(e-> {
+            String message = "Currency Converter is a Java application developed by me, Julian Giudice (github.com/karpo27) for the Java Challenge Oracle ONE. \n"
+                    + "The application allows users to convert between different currencies using the latest exchange rates obtained from a free API. \n"
+                    + "It has a user-friendly graphical interface developed using Swing, where users can select the input and output currency, enter \n"
+                    + "the value to convert, and obtain the converted value. Additionally, the application supports a wide range of currencies, making \n"
+                    + "it useful for people who need to convert currencies frequently.";
+            // Show message
+            JOptionPane.showMessageDialog(this, message, "About", JOptionPane.INFORMATION_MESSAGE);
         });
 
         // Make Main Screen Visible:
