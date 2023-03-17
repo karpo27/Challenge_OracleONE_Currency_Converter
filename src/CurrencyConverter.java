@@ -34,7 +34,7 @@ public class CurrencyConverter extends JFrame{
     final JButtonCreator QUESTION_MARK_BUTTON;
     final int X = WIDTH/2 - 198;
     final int Y = 41;
-    final int W = 147;
+    final int W = 153;
     final int H = 36;
     final Rectangle PANEL_1_POS = new Rectangle(X, Y, W, H);
     final Rectangle PANEL_2_POS = new Rectangle(X, Y + H, W, H);
@@ -44,9 +44,9 @@ public class CurrencyConverter extends JFrame{
     final Rectangle LABEL_2_POS = new Rectangle(X - 25, Y + H - 3, W, Y);
     final Rectangle LABEL_3_POS = new Rectangle(X - 120, Y + 2 * H - 6, W, Y);
     final Rectangle LABEL_4_POS = new Rectangle(X - 54, Y + 3 * H - 7, W, Y);
-    final Rectangle BUTTON_1_POS = new Rectangle(X + 155, Y + 2 * H, 30, Y - 12);
+    final Rectangle BUTTON_1_POS = new Rectangle(X + 158, Y + 2 * H, 30, Y - 12);
     final Rectangle BUTTON_2_POS = new Rectangle(X + 195, Y + 2 * H, 30, Y - 12);
-    final Rectangle BUTTON_3_POS = new Rectangle(X + 155, Y + 3 * H, 30, Y - 12);
+    final Rectangle BUTTON_3_POS = new Rectangle(X + 158, Y + 3 * H, 30, Y - 12);
     final Rectangle BUTTON_4_POS = new Rectangle(X + 450, Y - 34, 24, Y - 17);
     private final HashMap<String, String> CURRENCY_SYMBOLS = new HashMap<>() {{
         put("Argentina Peso", "ARS");
