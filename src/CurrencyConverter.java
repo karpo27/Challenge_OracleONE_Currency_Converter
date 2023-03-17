@@ -48,9 +48,6 @@ public class CurrencyConverter extends JFrame{
     final Rectangle BUTTON_2_POS = new Rectangle(X + 195, Y + 2 * H, 30, Y - 12);
     final Rectangle BUTTON_3_POS = new Rectangle(X + 155, Y + 3 * H, 30, Y - 12);
     final Rectangle BUTTON_4_POS = new Rectangle(X + 450, Y - 34, 24, Y - 17);
-    private final String[] CURRENCY_OPTIONS = {"-Select an Option-", "Argentina Peso", "Brazil Real", "Chile Peso",
-            "Uruguay Peso", "Paraguay Guarani", "Bolivia Boliviano", "Peru Sol", "Colombia Peso", "US Dollar",
-            "Venezuela Bolivar", "Mexico Peso", "Euro", "Pounds", "Japan Yen", "Korea Won"};
     private final HashMap<String, String> CURRENCY_SYMBOLS = new HashMap<>() {{
         put("Argentina Peso", "ARS");
         put("Brazil Real", "BRL");
@@ -85,10 +82,16 @@ public class CurrencyConverter extends JFrame{
         add(bgImage);
 
         // Panel 1 - Create IN_CURRENCY_PANEL:
-        Arrays.sort(CURRENCY_OPTIONS);
-        IN_CURRENCY_PANEL = new JPanelCreator(PANEL_1_POS, CURRENCY_OPTIONS, true);
+        String[] currencyOptions = new String[CURRENCY_SYMBOLS.size() + 1];
+        currencyOptions[0] = "-Select an Option-";
+        int index = 1;
+        for (String key : CURRENCY_SYMBOLS.keySet()) {
+            currencyOptions[index++] = key;
+        }
+        Arrays.sort(currencyOptions);
+        IN_CURRENCY_PANEL = new JPanelCreator(PANEL_1_POS, currencyOptions, true);
         // Panel 2 - Create OUT_CURRENCY_PANEL:
-        OUT_CURRENCY_PANEL = new JPanelCreator(PANEL_2_POS, CURRENCY_OPTIONS, false);
+        OUT_CURRENCY_PANEL = new JPanelCreator(PANEL_2_POS, currencyOptions, false);
         // Panel 3 - Create In Text Field:
         IN_VALUE_PANEL = new JTextFieldCreator(PANEL_3_POS, false);
         // Panel 4 - Create Out Text Field:
@@ -154,13 +157,13 @@ public class CurrencyConverter extends JFrame{
         IN_CURRENCY_PANEL.getOptionsComboBox().addActionListener(e -> {
             String selectedOption = (String) IN_CURRENCY_PANEL.getOptionsComboBox().getSelectedItem();
             if ("-Select an Option-".equals(selectedOption)) {
-                OUT_CURRENCY_PANEL.setOptionsComboBox(CURRENCY_OPTIONS, "");
+                OUT_CURRENCY_PANEL.setOptionsComboBox(currencyOptions, "");
                 setVisibility(labelList, new boolean[] {true, false, false, false});
                 setVisibility(textList, new boolean[] {false, false});
                 setVisibility(buttonList, new boolean[] {false, false, false});
                 IN_VALUE_PANEL.setTextField("");
             } else {
-                OUT_CURRENCY_PANEL.setOptionsComboBox(CURRENCY_OPTIONS, selectedOption);
+                OUT_CURRENCY_PANEL.setOptionsComboBox(currencyOptions, selectedOption);
                 setVisibility(labelList, new boolean[] {true, true, false, false});
                 OUT_CURRENCY_PANEL.setVisible(true);
                 inCurrency = CURRENCY_SYMBOLS.get(selectedOption);
@@ -232,11 +235,11 @@ public class CurrencyConverter extends JFrame{
                     COPY_BUTTON.setVisible(true);
 
                 } catch (NumberFormatException | IOException ex) {
-                    // Show error message
+                    // Show error message:
                     JOptionPane.showMessageDialog(this, "Please enter a valid number", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             } else {
-                // Show error message
+                // Show error message:
                 JOptionPane.showMessageDialog(this, "Please enter a valid number", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
@@ -259,12 +262,13 @@ public class CurrencyConverter extends JFrame{
 
         // Question Mark Button Actions:
         QUESTION_MARK_BUTTON.button.addActionListener(e-> {
-            String message = "Currency Converter is a Java application developed by me, Julian Giudice (github.com/karpo27) for the Java Challenge Oracle ONE. \n"
-                    + "The application allows users to convert between different currencies using the latest exchange rates obtained from a free API. \n"
-                    + "It has a user-friendly graphical interface developed using Swing, where users can select the input and output currency, enter \n"
-                    + "the value to convert, and obtain the converted value. Additionally, the application supports a wide range of currencies, making \n"
-                    + "it useful for people who need to convert currencies frequently.";
-            // Show message
+            String message = """
+                    Currency Converter is a Java application developed by me, Julian Giudice (github.com/karpo27) for the Java Challenge Oracle ONE.\s
+                    The application allows users to convert between different currencies using the latest exchange rates obtained from a free API.\s
+                    It has a user-friendly graphical interface developed using Swing, where users can select the input and output currency, enter\s
+                    the value to convert, and obtain the converted value. Additionally, the application supports a wide range of currencies, making\s
+                    it useful for people who need to convert currencies frequently.""";
+            // Show message:
             JOptionPane.showMessageDialog(this, message, "About", JOptionPane.INFORMATION_MESSAGE);
         });
 
