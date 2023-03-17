@@ -29,6 +29,8 @@ The graphical interface will appear on your screen. You can select the input and
 The converted value will appear in the output field. You can also clean the input field using the "broom" button. 
 Additionally, you can try using the "copy to clipboard" button to store the result you obtained, to use it later with Ctrl + V.
 
+https://user-images.githubusercontent.com/54405665/225943153-7c5b770a-102c-4df3-ba48-3113b00bfb5a.mp4
+
 ## Contributing
 If you find any bugs or want to suggest new features, please open an issue on the GitHub repository. You can also submit a pull request if you want to contribute to the development of the application.
 
