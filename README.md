@@ -5,7 +5,7 @@
 
 Currency Converter is a Java application that allows users to convert between different currencies. It provides a graphical interface using Swing, to select the input and output currency and enter the value to convert. This application uses the latest exchange rates from a free API to convert currencies accurately.
 
-![image](https://user-images.githubusercontent.com/54405665/225778672-7dc235a3-3d0e-4657-b4d5-a8646bad31aa.png)
+![image](https://user-images.githubusercontent.com/54405665/225930092-1c106309-6d64-4ec9-bda6-cca6121d710f.png)
 
 Table of Contents:
 
