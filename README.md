@@ -9,10 +9,15 @@ Currency Converter is a Java application that allows users to convert between di
 
 Table of Contents:
 
+- [Features](#Features)
 - [Installation](#Installation)
 - [Usage](#Usage)
-- [Features](#Features)
 - [Contributing](#Contributing)
+
+## Features
+- User-friendly graphical interface
+- Accurate currency conversion using latest exchange rates
+- Supports a wide range of currencies
 
 ## Installation
 
@@ -23,11 +28,6 @@ After downloading the application, you can run it by double-clicking the Currenc
 The graphical interface will appear on your screen. You can select the input and output currency from the dropdown menus, enter the numeric value to convert in the input field and press the "green tick" button. 
 The converted value will appear in the output field. You can also clean the input field using the "broom" button. 
 Additionally, you can try using the "copy to clipboard" button to store the result you obtained, to use it later with Ctrl + V.
-
-## Features
-- User-friendly graphical interface
-- Accurate currency conversion using latest exchange rates
-- Supports a wide range of currencies
 
 ## Contributing
 If you find any bugs or want to suggest new features, please open an issue on the GitHub repository. You can also submit a pull request if you want to contribute to the development of the application.
