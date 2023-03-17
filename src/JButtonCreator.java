@@ -21,5 +21,3 @@ public class JButtonCreator extends JPanel {
         setVisible(visibility);
     }
 }
-
-

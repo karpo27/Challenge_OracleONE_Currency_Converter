@@ -21,13 +21,13 @@ public class CurrencyConverter extends JFrame{
     final ImageIcon COPY = new ImageIcon(Objects.requireNonNull(getClass().getResource("/assets/copy.png")));
     private final JPanelCreator IN_CURRENCY_PANEL;
     private final JPanelCreator OUT_CURRENCY_PANEL;
-    private final JTextFieldCreator IN_VALUE;
-    private final JTextFieldCreator OUT_VALUE;
-    private final JLabelCreator INSERT_NUMBER_VALUE;
-    private final JLabelCreator RESULT_VALUE;
-    private final JButtonCreator CONVERT_BUTTON;
-    private final JButtonCreator CLEAN_BUTTON;
-    private final JButtonCreator COPY_BUTTON;
+    final JTextFieldCreator IN_VALUE;
+    final JTextFieldCreator OUT_VALUE;
+    final JLabelCreator INSERT_NUMBER_VALUE;
+    final JLabelCreator RESULT_VALUE;
+    final JButtonCreator CONVERT_BUTTON;
+    final JButtonCreator CLEAN_BUTTON;
+    final JButtonCreator COPY_BUTTON;
     final int X = WIDTH/2 - 198;
     final int Y = 41;
     final int W = 147;
@@ -63,7 +63,6 @@ public class CurrencyConverter extends JFrame{
         put("Japan Yen", "JPY");
         put("Korea Won", "KRW");
     }};
-
     private String inCurrency;
     private String outCurrency;
 
@@ -143,7 +142,7 @@ public class CurrencyConverter extends JFrame{
         buttonList.add(CLEAN_BUTTON);
         buttonList.add(COPY_BUTTON);
 
-        // Add ActionListener to Panel 1 - IN_CURRENCY_PANEL JComboBox:
+        // Panel 1 - IN_CURRENCY_PANEL JComboBox Actions:
         IN_CURRENCY_PANEL.getOptionsComboBox().addActionListener(e -> {
             String selectedOption = (String) IN_CURRENCY_PANEL.getOptionsComboBox().getSelectedItem();
             if ("-Select an Option-".equals(selectedOption)) {
@@ -160,7 +159,7 @@ public class CurrencyConverter extends JFrame{
             }
         });
 
-        // Add ActionListener to Panel 2 - OUT_CURRENCY_PANEL JComboBox:
+        // Panel 2 - OUT_CURRENCY_PANEL JComboBox Actions:
         OUT_CURRENCY_PANEL.getOptionsComboBox().addActionListener(e -> {
             String selectedOption = (String) OUT_CURRENCY_PANEL.getOptionsComboBox().getSelectedItem();
             if ("-Select an Option-".equals(selectedOption)) {
