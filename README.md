@@ -14,7 +14,7 @@ Table of Contents:
 - [Usage](#Usage)
 - [Contributing](#Contributing)
 
-## Features
+## Feature
 - User-friendly graphical interface
 - Accurate currency conversion using latest exchange rates
 - Supports a wide range of currencies
