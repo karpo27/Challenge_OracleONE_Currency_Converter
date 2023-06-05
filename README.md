@@ -11,6 +11,7 @@ Table of Contents:
 - [Installation](#Installation)
 - [Usage](#Usage)
 - [Contributing](#Contributing)
+- [How to reach me](#How-to-reach-me)
 
 ## Features
 - User-friendly graphical interface
